@@ -1,0 +1,164 @@
+<!-- Cre: nguyen bao -->
+<h3 class="text-center pb-2">
+    Sửa thông tin khách hàng
+</h3>
+<form [formGroup]="formEditCustomer">
+    <!--            họ tên-->
+    <div class="form-group row">
+        <label for="name" class="col-sm-3 col-form-label">
+            Họ và tên(<span class="star">*</span>):
+        </label>
+        <div class="col-sm-9">
+            <input id="name" type="text" class="form-control" placeholder="Vui lòng nhập họ và tên"
+                formControlName="name">
+            <p class="text-danger" *ngIf="formEditCustomer.controls.name.errors?.required">
+                Vui lòng điền vào trường Họ và tên.
+            </p>
+            <p *ngIf="formEditCustomer.controls.name.errors?.pattern" class="text-danger">
+                Tên riêng chỉ bao gồm chữ cái, đầy đủ họ tên không thể chứa ký tự đặc biệt, chữ số và tối đa 40 ký tự.
+            </p>
+        </div>
+    </div>
+    <!--            ngày sinh-->
+    <div class="form-group row">
+        <label for="birthday" class="col-sm-3 col-form-label">
+            Ngày sinh(<span class="star">*</span>):
+        </label>
+        <div class="col-sm-9">
+            <input id="birthday" type="date" class="form-control" formControlName="dateOfBirth">
+            <p class="text-danger" *ngIf="formEditCustomer.controls.dateOfBirth.errors?.required">
+                Vui lòng điền vào trường Ngày sinh.
+            </p>
+            <p class="text-danger" *ngIf="formEditCustomer.hasError('minAge','dateOfBirth')">
+                Khách hàng cần đủ 18 tuổi trở lên.
+            </p>
+            <p class="text-danger" *ngIf="formEditCustomer.hasError('maxAge','dateOfBirth')">
+                Số tuổi vượt quá giới hạn.
+            </p>
+        </div>
+    </div>
+    <!--            giới tính-->
+    <div class="form-group row">
+        <legend class="col-sm-3 col-form-label">
+            Giới tính(<span class="star">*</span>):
+        </legend>
+        <div class="col-sm-9">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="male" value="1" formControlName="gender">
+                <label class="form-check-label" for="male">Nam</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="female" value="0" formControlName="gender">
+                <label class="form-check-label" for="female">Nữ</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="other" value="2" formControlName="gender">
+                <label class="form-check-label" for="other">Khác</label>
+            </div>
+        </div>
+    </div>
+    <!--            số cmnd-->
+    <div class="form-group row">
+        <label for="idCard" class="col-sm-3 col-form-label">
+            Số CMND(<span class="star">*</span>):
+        </label>
+        <div class="col-sm-9">
+            <input id="idCard" type="text" class="form-control" placeholder="Vui lòng nhập số chứng minh thư"
+                formControlName="idCard" (input)="checkInput('idCard')">
+            <p *ngIf="formEditCustomer.controls.idCard.errors?.required" class="text-danger">
+                Vui lòng điền vào trường Số CMND.
+            </p>
+            <p *ngIf="formEditCustomer.controls.idCard.errors?.pattern" class="text-danger">
+                Chứng minh nhân dân phải có 9 số.
+            </p>
+            <p class="text-danger" *ngIf="!isCheck">
+                {{listError.existIdCard}}
+            </p>
+        </div>
+    </div>
+    <!--            số đt-->
+    <div class="form-group row">
+        <label for="phone" class="col-sm-3 col-form-label">
+            Số điện thoại(<span class="star">*</span>):
+        </label>
+        <div class="col-sm-9">
+            <input id="phone" type="text" class="form-control" placeholder="Vui lòng nhập số điện thoại"
+                formControlName="phone" (input)="checkInput('phone')">
+            <p *ngIf="formEditCustomer.controls.phone.errors?.required" class="text-danger">
+                Vui lòng điền vào trường Số điện thoại.
+            </p>
+            <p *ngIf="formEditCustomer.controls.phone.errors?.pattern" class="text-danger">
+                Số điện thoại chưa đúng định dạng 0(3/5/7/8/9)xxxxxxxx.
+            </p>
+            <p class="text-danger" *ngIf="!isCheck">
+                {{listError.existPhone}}
+            </p>
+        </div>
+    </div>
+    <!--            email-->
+    <div class="form-group row">
+        <label for="email" class="col-sm-3 col-form-label">
+            E-mail(<span class="star">*</span>):
+        </label>
+        <div class="col-sm-9">
+            <input id="email" type="email" class="form-control" placeholder="Vui lòng nhập E-mail"
+                formControlName="email" (input)="checkInput('email')">
+            <p *ngIf="formEditCustomer.controls.email.errors?.required" class="text-danger">
+                Vui lòng điền vào trường E-mail.
+            </p>
+            <p *ngIf="formEditCustomer.controls.email.errors?.pattern" class="text-danger">
+                Vui lòng nhập đúng định dạng abc@abc.abc.
+            </p>
+            <p class="text-danger" *ngIf="!isCheck">
+                {{listError.existEmail}}
+            </p>
+        </div>
+    </div>
+    <!--                địa chỉ-->
+    <div class="form-group row">
+        <label for="address" class="col-sm-3 col-form-label">
+            Địa chỉ(<span class="star">*</span>):
+        </label>
+        <div class="col-sm-9">
+            <input id="address" type="text" class="form-control" placeholder="Vui lòng nhập địa chỉ"
+                formControlName="address">
+            <p *ngIf="formEditCustomer.controls.address.errors?.required" class="text-danger">
+                Vui lòng điền vào trường Địa chỉ.
+            </p>
+        </div>
+    </div>
+    <!--                thành phố-->
+    <div class="form-group row">
+        <label for="city" class="col-sm-3 col-form-label">
+            Thành phố(<span class="star">*</span>):
+        </label>
+        <div class="col-sm-9">
+            <input id="city" type="text" class="form-control" placeholder="Vui lòng nhập thành phố"
+                formControlName="city">
+            <p *ngIf="formEditCustomer.controls.city.errors?.required" class="text-danger">
+                Vui lòng điền vào trường Thành phố.
+            </p>
+        </div>
+    </div>
+    <!--                image-->
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label">
+            Ảnh đại diện:
+        </label>
+        <div class="col-sm-9">
+            <input hidden type="file" class="form-control" accept="image/*" #fileUploader
+                (change)="showPreview($event)">
+            <div class="container pointer" (click)="fileUploader.click()">
+                <img [src]="imgSrc" alt="Avatar" class="image">
+                <div class="middle">
+                    <div class="text">Cập nhật ảnh</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <button mat-dialog-close class="btn btn-danger btn-sm">Hủy</button>
+        <button (click)="update()" type="submit" class="btn btn-success btn-sm ml-3">Lưu</button>
+    </div>
+</form>
+<!-- End of Cre: nguyen bao -->

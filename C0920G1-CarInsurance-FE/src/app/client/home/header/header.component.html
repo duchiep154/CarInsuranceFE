@@ -1,0 +1,61 @@
+<header id="header" class="fixed-top header-inner-pages">
+  <div class="container-fluid d-flex align-items-center justify-content-between" style="height: 80px">
+
+    <h1 class="logo"><a href="#">C0920G1
+      <img src="assets/img/logoC09.png" style="margin-bottom: 10px;height: 60px">
+    </a></h1>
+
+    <nav class="nav-menu d-none d-lg-block">
+      <ul>
+        <li><a href="./create-contract">Hợp đồng</a></li>
+        <li class="drop-down"><a style="cursor: pointer">Các loại bảo hiểm <i class="fas fa-angle-down"></i></a>
+
+          <ul>
+            <li><a href="#">Bảo hiểm bắt buộc TNDS của chủ xe cơ giới</a></li>
+            <li><a href="#">Bảo hiểm TNDS của chủ xe đối với hàng hóa</a></li>
+            <li><a href="#">Bảo hiểm thiệt hại vật chất xe cơ giới</a></li>
+            <li><a href="#">Bảo hiểm người ngồi trên xe và tai nạn lái phụ xe</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Khuyến mãi</a></li>
+        <li class="drop-down"><a style="cursor: pointer">Thông tin bảo hiểm <i class="fas fa-angle-down"></i></a>
+          <ul>
+            <li><a href="./list-contract">Hợp đồng chi tiết</a></li>
+            <li><a href="./accident-client">Yêu cầu bồi thường</a></li>
+          </ul>
+        </li>
+        <li><a href="./questions">Hỗ trợ</a></li>
+
+      </ul>
+    </nav><!-- .nav-menu -->
+    <!--    <p class="scrollto mt-3" >-->
+    <!--      <a href="#" >Đăng ký </a>-->
+    <!--      <label style="color: white;font-weight: bold"> | </label>-->
+    <!--      <a href="#" > đăng nhập</a>-->
+    <!--    </p>-->
+    <div class="scrollto">
+      <nav class="navbar navbar-expand navbar-dark" style="font-weight: bold">
+        <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+          <li class="nav-item">
+            <a class="nav-link"  style="cursor: pointer" (click)="openDialogRegister()">Đăng ký</a>
+          </li>
+          <li class="nav-item">
+            <a (click)="openDialogLogin()" style="cursor: pointer" class="nav-link">Đăng nhập</a>
+          </li>
+        </ul>
+        <div class="btn-group login" *ngIf="isLoggedIn" >
+          <a type="button" class="dropdown-toggle text-light" data-toggle="dropdown" aria-haspopup="true"
+             aria-expanded="false">
+            {{ username }}
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item text-dark" href="/client-edit-customer" routerLink="/client-edit-customer">Thông tin bản thân</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-dark" href (click)="logout()">Đăng xuất</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+  </div>
+</header><!-- End Header -->

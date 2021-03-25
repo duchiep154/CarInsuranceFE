@@ -1,0 +1,100 @@
+<h3 class="text-center pb-2">Thông tin chi tiết khách hàng</h3>
+<form [formGroup]="formEditCustomer" style="font-size: 15px">
+  <!--            họ tên-->
+  <div class="form-group row">
+    <label for="name" class="col-sm-3 col-form-label font-weight-bold">Họ và tên(<span
+      class="star">*</span>):</label>
+    <div class="col-sm-9">
+      <input id="name" type="text" class="form-control" placeholder="Vui lòng nhập họ và tên"
+             formControlName="name" readonly>
+    </div>
+  </div>
+  <!--            ngày sinh-->
+  <div class="form-group row">
+    <label for="birthday" class="col-sm-3 col-form-label font-weight-bold">Ngày sinh(<span
+      class="star">*</span>):</label>
+    <div class="col-sm-9">
+      <input id="birthday" type="date" class="form-control" formControlName="dateOfBirth" readonly>
+    </div>
+  </div>
+  <!--            giới tính-->
+  <div class="form-group row">
+    <legend class="col-sm-3 col-form-label font-weight-bold">Giới tính(<span class="star">*</span>):
+    </legend>
+    <div class="col-sm-9">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" ng-control="gender" value="1" type="radio" formControlName="gender" disabled>
+        <label class="form-check-label" >Nam</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" ng-control="gender" value="0" type="radio" formControlName="gender" disabled>
+        <label class="form-check-label" >Nữ</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" ng-control="gender" value="2" type="radio" formControlName="gender" disabled>
+        <label class="form-check-label">Khác</label>
+      </div>
+    </div>
+  </div>
+  <!--            số cmnd-->
+  <div class="form-group row">
+    <label for="idCard" class="col-sm-3 col-form-label font-weight-bold">Số CMND(<span
+      class="star">*</span>):</label>
+    <div class="col-sm-9">
+      <input id="idCard" type="text" class="form-control" placeholder="Vui lòng nhập số chứng minh thư"
+             formControlName="idCard" readonly>
+    </div>
+  </div>
+  <!--            số đt-->
+  <div class="form-group row">
+    <label for="phone" class="col-sm-3 col-form-label font-weight-bold">Số điện thoại(<span
+      class="star">*</span>):</label>
+    <div class="col-sm-9">
+      <input id="phone" type="text" class="form-control" placeholder="Vui lòng nhập số điện thoại"
+             formControlName="phone" readonly>
+    </div>
+  </div>
+  <!--            email-->
+  <div class="form-group row">
+    <label for="email" class="col-sm-3 col-form-label font-weight-bold">E-mail(<span class="star">*</span>):</label>
+    <div class="col-sm-9">
+      <input id="email" type="email" class="form-control" placeholder="Vui lòng nhập E-mail"
+             formControlName="email" readonly>
+    </div>
+  </div>
+  <!--                địa chỉ-->
+  <div class="form-group row">
+    <label for="address" class="col-sm-3 col-form-label font-weight-bold">Địa chỉ(<span
+      class="star">*</span>):</label>
+    <div class="col-sm-9">
+      <input id="address" type="text" class="form-control" placeholder="Vui lòng nhập địa chỉ"
+             formControlName="address" readonly>
+    </div>
+  </div>
+  <!--                thành phố-->
+  <div class="form-group row">
+    <label for="city" class="col-sm-3 col-form-label font-weight-bold">Thành phố(<span
+      class="star">*</span>):</label>
+    <div class="col-sm-9">
+      <input id="city" type="text" class="form-control" placeholder="Vui lòng nhập thành phố"
+             formControlName="city" readonly>
+
+    </div>
+  </div>
+  <!--                image-->
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label font-weight-bold">Ảnh đại diện:</label>
+    <div class="col-sm-9">
+      <div class="container pointer" >
+        <img src="{{img}}" alt="Avatar" class="image " style="width: 120px;height: 150px" (click)="showBigImg(img)">
+        <div [style]="style" id="show">
+          <p class="float-right" (click)="closeBigImg()">Close X</p>
+          <img [src]="src" id="expandedImg" height="250px" style="box-shadow: 0px 0px 15px 5px black">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center">
+    <button mat-dialog-close class="btn btn-danger btn-sm">Đóng</button>
+  </div>
+</form>

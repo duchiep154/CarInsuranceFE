@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <title>Comment</title>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+<div>
+  <app-header></app-header>
+</div>
+<app-create-question></app-create-question>
+<div class="container">
+  <div class="card" style="margin-bottom:10px; border: 1px solid;padding: 10px;box-shadow:0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+  0 100px 80px rgba(0, 0, 0, 0.12)" *ngFor="let questions of listQuestion; index as i; ">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-2">
+          <img src="https://media.baodautu.vn/Images/chicuong/2019/07/27/mvl7y4jk.jpg" class="img img-rounded img-fluid" />
+          <p class="text-secondary text-center" style="margin-bottom: 0">{{questions.dateQuestion | date: 'dd/MM/yyyy'}}</p>
+          <p class="text-secondary text-center">{{questions.dateQuestion | date: 'dd/MM/yyyy'}}</p>
+        </div>
+        <div class="col-md-10">
+          <div>
+            <a class="float-left" style="color: #2196f3"><strong>{{questions.users.username}}</strong></a>
+            <a (click)="openDialogDelete(questions.id)" *ngIf="toggleShow(questions.users.id)"
+               class="float-right" style="cursor: pointer; color: #D1494B" ><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp;</a>
+            <a (click)="openDialogEdit(questions.id)" *ngIf="toggleShow(questions.users.id)
+                 && this.listCheckAdminAnswer[i]" class="float-right"
+               style="cursor: pointer; color: #D9CD4E"><i class="fas fa-edit"></i>&nbsp;&nbsp;</a>
+          </div>
+          <div class="clearfix"></div>
+          <p [innerHTML]="[questions.contentQuestion]">{{questions.contentQuestion}}</p>
+          <div style="display: flex">
+            <a (click)="toggle(questions.id)" style="color: #2196f3; cursor: pointer; width: 90%; float: left">
+              {{buttonName[i]}}
+            </a>
+            <a (click)="openCreateDialog(questions.id)" class="float-right ml-2"  style="text-decoration: none;
+               color: #696E6E;cursor: pointer; float: right"><i class="fa fa-reply"></i> Trả lời</a>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="this.listCheck[i]">
+        <div class="card card-inner" *ngFor="let answer of questions.answerSet" id="list">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-2">
+                <img src="https://storage.googleapis.com/f1-cms/2019/08/99d4f65a-20190829_081726.jpg" class="img img-rounded img-fluid" />
+                <p class="text-secondary text-center" style="margin-bottom: 0">{{answer.dateAnswer | date: 'h:mm a'}}</p>
+                <p class="text-secondary text-center">{{answer.dateAnswer | date: 'dd/MM/yyyy'}}</p>
+              </div>
+              <div class="col-md-10">
+                <a style="color: #2196f3"><strong>{{answer.users.username}}</strong></a>
+                <!--              <a href="#" class="float-right" style="text-decoration: none; color: #dc3545"-->
+                <!--                 data-toggle="modal" data-target="#exampleModalLong"> Xóa </a>-->
+                <a (click)="openEditDialog(answer.id)"  *ngIf="toggleShowAnswer(answer.users.id)" class="float-right "
+                   style="text-decoration: none; color: #FFD700; cursor: pointer" >Chỉnh sửa </a>
+                <p (mouseover)="checkSeen(answer.id)" [innerHTML]="[answer.contentAnswer]">{{answer.contentAnswer}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container paging-course">
+  <nav aria-label="Page navigation example" style="margin-left: 750px" >
+    <ul class="pagination">
+      <li class="page-item" (click)="onFirst()" [ngClass]="pageClicked==0?'disabled':''">
+        <a class="page-link">Đầu</a>
+      </li>
+      <li class="page-item" (click)="onPrevious()" [ngClass]="pageClicked==0?'disabled':''">
+        <a class="page-link">Sau</a>
+      </li>
+      <li *ngIf="pageClicked != 0" class="page-item" (click)="findAll(pages[pageClicked-1])">
+        <a class="page-link">{{pageClicked}}</a>
+      </li>
+      <li [ngClass]="(pageClicked == pages[pageClicked]) ? 'active' : ''" class="page-item"
+          (click)="findAll(pages[pageClicked])">
+        <a class="page-link">{{pageClicked + 1}}</a>
+      </li>
+      <li *ngIf="pageClicked < pages.length -1" class="page-item" (click)="findAll(pages[pageClicked+1])">
+        <a class="page-link">{{pageClicked + 2}}</a>
+      </li>
+      <li *ngIf="pageClicked < pages.length -2" class="page-item">
+        <a class="page-link">...</a>
+      </li>
+      <li *ngIf="pageClicked < pages.length-2" class="page-item" (click)="onLast()">
+        <a class="page-link">{{pages[pages.length - 1] + 1}}</a>
+      </li>
+      <li class="page-item" (click)="onNext()" [ngClass]="pageClicked==totalPages-1?'disabled':''">
+        <a class="page-link">Trước</a>
+      </li>
+      <li class="page-item" (click)="onLast()" [ngClass]="pageClicked==totalPages-1?'disabled':''"><a
+        class="page-link">Cuối</a></li>
+    </ul>
+  </nav>
+</div>
+<app-footer></app-footer>
+</body>
+</html>

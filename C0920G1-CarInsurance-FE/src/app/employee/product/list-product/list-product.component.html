@@ -1,0 +1,264 @@
+
+<div class="col-12 float-right mt-1">
+  <div class="col-10 mt-3 mb-3 input-group">
+    <h3>Danh Sách Sản Phẩm</h3>
+  </div>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active mt-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+      <!--      class="nav-link active"-->
+      <!--      class="nav-link"-->
+      <ul class="nav nav-tabs mt-3" id="myTab" role="tablist">
+        <li class="nav-item">
+
+          <a class="nav-item nav-link active" id="exist-tab" data-toggle="tab" href="#exist" role="tab"
+            aria-controls="home" aria-selected="true" (click)="this.onSubmitTrue(0)">Danh Sách Bảo Hiểm Đang Tồn Tại</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-item nav-link" id="hidden-tab" data-toggle="tab" href="#hidden" role="tab"
+            aria-controls="profile" aria-selected="false" (click)="this.onSubmitFalse(0)">Danh Sách Bảo Hiểm Đang Tạm
+            Ẩn</a>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="exist" role="tabpanel" aria-labelledby="exist-tab">
+          <!--      Dòng chứa button thêm mới, search-->
+
+          <div class="col-5 mt-3 mb-3 float-right input-group">
+            <a [routerLink]="['create']"
+               class="btn btn-sm btn-primary mr-1"
+               data-toggle="tooltip"
+               data-placement="top"
+               title="Thêm mới">
+              <i class="fas fa-user-plus"></i>
+            </a>
+            <input type="text" class="form-control" aria-describedby="basic-addon2"
+              placeholder="Tên, loại bảo hiểm hay loại xe" (keyup.enter)="onSubmitTrue(0)"
+              [(ngModel)]="search" />
+            <div class="input-group-append">
+              <button (click)="onSubmitTrue(0)"
+                      class="btn btn-outline-primary"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Tìm kiếm"
+                      type="button">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+          <table class="table table-hover" style="font-size: 12px;">
+            <thead class="thead-light">
+            <tr>
+              <th class="text-center"
+                scope="col"
+                  style="width: 5%">#</th>
+              <th class="text-center"
+                scope="col"
+                  style="width: 10%">Tên bảo hiểm</th>
+              <th class="text-center"
+                   scope="col"
+                  style="width: 30%">Loại bảo hiểm</th>
+              <th class="text-center"
+                scope="col"
+                  style="width: 15%">Số người trên xe</th>
+              <th class="text-center"
+                scope="col"
+                  style="width: 18%">Loại xe</th>
+              <th class="text-center"
+                scope="col"
+                  style="width: 10%">Đơn giá</th>
+              <th class="text-center"
+                scope="col" style="width: 12%">Hoạt Động</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let productTrue of productTrues; index as i">
+                <th scope="row">{{ i + 1 }}</th>
+                <td class="text-center">{{ productTrue.name }}</td>
+                <td class="text-center">{{ productTrue.productType.name }}</td>
+                <td class="text-center">{{ productTrue.personNumber }}</td>
+                <td class="text-center">
+                  {{ productTrue.carType.carSeat }} chỗ &
+                  {{ productTrue.carType.carAge }}
+                </td>
+                <td class="text-right">{{ productTrue.productPrice | number: "1.0-0" }} đ</td>
+                <td class="text-center">
+                  <button (click)="openUpdateDialog(productTrue.id)"
+                          class="btn btn-sm btn-warning mr-3"
+                          data-toggle="tooltip"
+                          data-placement="top"
+                          title="Sửa lại"><i class="fas fa-tools"></i>
+                  </button>
+                  <button (click)="openChangeStatusDialog(productTrue.id)"
+                          class="btn btn-sm btn-dark"
+                          data-toggle="tooltip"
+                          data-placement="top"
+                          title="Ẩn đi">
+                    <i class="fas fa-cart-arrow-down"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+<!--          phần phân trang list status true-->
+
+          <div class="paging-course w-100 d-flex justify-content-end">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item" (click)="onFirstTrue()" [ngClass]="pageClicked == 0 ? 'disabled' : ''">
+                  <a class="page-link">Đầu</a>
+                </li>
+                <li class="page-item" (click)="onPreviousTrue()" [ngClass]="pageClicked == 0 ? 'disabled' : ''">
+                  <a class="page-link">Trước</a>
+                </li>
+                <li *ngIf="pageClicked != 0" class="page-item" (click)="onSubmitTrue(pages[pageClicked - 1])">
+                  <a class="page-link">{{ pageClicked }}</a>
+                </li>
+                <li [ngClass]="pageClicked == pages[pageClicked] ? 'active' : ''" class="page-item"
+                  (click)="onSubmitTrue(pages[pageClicked])">
+                  <a class="page-link">{{ pageClicked + 1 }}</a>
+                </li>
+                <li *ngIf="pageClicked < pages.length - 1" class="page-item"
+                  (click)="onSubmitTrue(pages[pageClicked + 1])">
+                  <a class="page-link">{{ pageClicked + 2 }}</a>
+                </li>
+                <li *ngIf="pageClicked < pages.length - 2" class="page-item">
+                  <a class="page-link">...</a>
+                </li>
+                <li *ngIf="pageClicked < pages.length - 2" class="page-item" (click)="onLastTrue()">
+                  <a class="page-link">{{ pages[pages.length - 1] + 1 }}</a>
+                </li>
+                <li class="page-item" (click)="onNextTrue()"
+                  [ngClass]="pageClicked == totalPages - 1 ? 'disabled' : ''">
+                  <a class="page-link">Sau</a>
+                </li>
+                <li class="page-item" (click)="onLastTrue()"
+                  [ngClass]="pageClicked == totalPages - 1 ? 'disabled' : ''">
+                  <a class="page-link">Cuối</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="hidden" role="tabpanel" aria-labelledby="hidden-tab">
+          <div>
+            <div class="col-5 mt-3 mb-3 float-right input-group">
+              <a [routerLink]="['create']"
+                 class="btn btn-sm btn-primary mr-1"
+                 data-toggle="tooltip"
+                 data-placement="top"
+                 title="Thêm mới">
+                <i class="fas fa-user-plus"></i>
+              </a>
+              <input type="text" class="form-control" placeholder="Tên, loại xe hoặc loại bảo hiểm"
+                aria-describedby="basic-addon2" (keyup.enter)="onSubmitFalse(0)" [(ngModel)]="search" />
+              <div class="input-group-append">
+                <button (click)="onSubmitFalse(0)"
+                        class="btn btn-outline-primary"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Tìm kiếm"
+                        type="button">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <table class="table table-striped" style="font-size: 12px;">
+            <thead class="thead-light">
+            <tr>
+              <th class="text-center"
+                  scope="col"
+                  style="width: 5%">#</th>
+              <th class="text-center"
+                  scope="col"
+                  style="width: 10%">Tên bảo hiểm</th>
+              <th class="text-center"
+                  scope="col"
+                  style="width: 30%">Loại bảo hiểm</th>
+              <th class="text-center"
+                  scope="col"
+                  style="width: 15%">Số người trên xe</th>
+              <th class="text-center"
+                  scope="col"
+                  style="width: 18%">Loại xe</th>
+              <th class="text-center"
+                  scope="col"
+                  style="width: 10%">Đơn giá</th>
+              <th class="text-center"
+                  scope="col" style="width: 12%">Hoạt Động</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let productFalse of productFalses; index as i">
+                <th scope="row">{{ i + 1 }}</th>
+                <td class="text-center">{{ productFalse.name }}</td>
+                <td class="text-center">{{ productFalse.productType.name }}</td>
+                <td class="text-center">{{ productFalse.personNumber }}</td>
+                <td class="text-center">
+                  {{ productFalse.carType.carSeat }} &
+                  {{ productFalse.carType.carAge }}
+                </td>
+                <td class="text-right">{{ productFalse.productPrice | number: "1.0-0" }} đ</td>
+                <td class="text-center">
+                  <button (click)="restoreStatusProduct(productFalse.id)"
+                          class="btn btn-sm btn-success mr-3"
+                          data-toggle="tooltip"
+                          data-placement="top"
+                          title="Phục hồi">
+                    <i class="fas fa-bible"></i>
+                  </button>
+                  <button (click)="openDeleteDialog(productFalse.id)"
+                          class="btn btn-sm btn-danger"
+                          data-toggle="tooltip"
+                          data-placement="top"
+                          title="Xóa hẳn">
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="paging-course w-100 d-flex justify-content-end">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item" (click)="onFirstFalse()" [ngClass]="pageClicked == 0 ? 'disabled' : ''">
+                  <a class="page-link">Đầu</a>
+                </li>
+                <li class="page-item" (click)="onPreviousFalse()" [ngClass]="pageClicked == 0 ? 'disabled' : ''">
+                  <a class="page-link">Trước</a>
+                </li>
+                <li *ngIf="pageClicked != 0" class="page-item" (click)="onSubmitFalse(pages[pageClicked - 1])">
+                  <a class="page-link">{{ pageClicked }}</a>
+                </li>
+                <li [ngClass]="pageClicked == pages[pageClicked] ? 'active' : ''" class="page-item"
+                  (click)="onSubmitFalse(pages[pageClicked])">
+                  <a class="page-link">{{ pageClicked + 1 }}</a>
+                </li>
+                <li *ngIf="pageClicked < pages.length - 1" class="page-item"
+                  (click)="onSubmitFalse(pages[pageClicked + 1])">
+                  <a class="page-link">{{ pageClicked + 2 }}</a>
+                </li>
+                <li *ngIf="pageClicked < pages.length - 2" class="page-item">
+                  <a class="page-link">...</a>
+                </li>
+                <li *ngIf="pageClicked < pages.length - 2" class="page-item" (click)="onLastFalse()">
+                  <a class="page-link">{{ pages[pages.length - 1] + 1 }}</a>
+                </li>
+                <li class="page-item" (click)="onNextFalse()"
+                  [ngClass]="pageClicked == totalPages - 1 ? 'disabled' : ''">
+                  <a class="page-link">Sau</a>
+                </li>
+                <li class="page-item" (click)="onLastFalse()"
+                  [ngClass]="pageClicked == totalPages - 1 ? 'disabled' : ''">
+                  <a class="page-link">Cuối</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

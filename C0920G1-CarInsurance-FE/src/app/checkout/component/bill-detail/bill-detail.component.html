@@ -1,0 +1,485 @@
+<!--<div class="container">-->
+
+<!--  <div class="row" >-->
+<!--    <form method="post">-->
+
+<!--      <div class="col-xs-4">-->
+<!--        <br><br>-->
+<!--        <div class="panel panel-default">-->
+<!--          <div class="panel-body">-->
+<!--            <button mat-raised-button type="submit " class="btn-block mat-primary">Place your order-->
+<!--            </button>-->
+<!--            <p style="font-size: smaller">By placing your order, you agree to Le's Bookstore <a href="#">privacy</a>-->
+<!--              notice and-->
+<!--              <a href="#">conditions</a> of use.</p>-->
+<!--            <hr/>-->
+<!--            <h3>Order Summary</h3>-->
+<!--            <div class="row">-->
+<!--              <div class="col-xs-7 text-left">-->
+<!--                Total before tax:-->
+<!--              </div>-->
+<!--              <div class="col-xs-5 text-right">-->
+<!--                $-->
+<!--                <span>{{billDTO.total_money}}</span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="row ">-->
+<!--              <div class="col-xs-7 text-left ">-->
+<!--                Estimated tax:-->
+<!--              </div>-->
+<!--              <div class="col-xs-5 text-right ">-->
+<!--                $<span>{{billDTO.total_money}}</span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <hr/>-->
+<!--            <div class="row ">-->
+<!--              <div class="col-xs-7 text-left ">-->
+<!--                <h3 style="color:darkred; "><strong>Order total:</strong></h3>-->
+<!--              </div>-->
+<!--              <div class="col-xs-5 text-right ">-->
+<!--                <h3><strong style="color:darkred; ">$<span-->
+<!--                >{{billDTO.total_money}}</span>-->
+<!--                </strong></h3>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="panel-footer ">Shipping and handling haven't applied.</div>-->
+<!--            <button (click)="openCheckout()" mat-raised-button type="submit " class="btn-block mat-primary">Purchase-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="col-xs-8 ">-->
+<!--        <div>-->
+<!--          <h5 class="alert alert-warning ">There are some fields missing. Field with * is required. </h5>-->
+<!--        </div>-->
+<!--        <mat-tab-group (selectedIndexChange)="selectedChange($event)" [selectedIndex]="selectedTab">-->
+
+
+<!--          <mat-tab id="content1" label="1. thông tin hợp đồng">-->
+
+
+<!--            <div class="mx-5 row">-->
+<!--              <div class="col-6">-->
+<!--                <div>-->
+<!--                  <label for="maBaoHiem" class="col-form-label">Mã hợp đồng</label>-->
+<!--                  <input class="form-control" id="maBaoHiem" type="text" [value]="billDTO.contract_id" readonly>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                  <label>ngày bắt đầu</label>-->
+<!--                  <input [value]="billDTO.contract_start_date" type="text" class="form-control" readonly>-->
+<!--                </div>-->
+
+<!--                <div>-->
+<!--                  <label for="cus" class="col-form-label">nhân viên tư vấn</label>-->
+<!--                  <input id="cus" class="form-control" type="text" [value]="billDTO.employee_name" readonly>-->
+<!--                </div>-->
+
+<!--              </div>-->
+<!--              <div class="col-6">-->
+<!--                <div class="">-->
+<!--                  <label for="duration" class="col-form-label">thời hạn theo tháng<span-->
+<!--                    class="text-danger">*</span></label>-->
+<!--                  <input id="duration" class="form-control" type="text" [value]="billDTO.contract_duration" readonly>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                  <label>ngày kết thúc</label>-->
+<!--                  <input [value]="billDTO.contract_end_date" type="text" class="form-control" readonly>-->
+<!--                </div>-->
+
+<!--                <div>-->
+<!--                  <label for="bienKS" class="col-form-label"> trạng thái</label>-->
+<!--                  <input id="bienKS" class="form-control" type="text" [value]="billDTO.status_approval" readonly>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <p></p>-->
+
+<!--          </mat-tab>-->
+<!--          <mat-tab id="content2" label="2. thông tin khách hàng">-->
+
+
+<!--            <div class="mx-5 row">-->
+<!--              <div class="col-6">-->
+<!--                <div>-->
+<!--                  <label for="tenkhachhang" class="col-form-label">Tên khách hàng</label>-->
+<!--                  <input class="form-control" id="tenkhachhang" type="text" [value]="billDTO.customer_name" readonly>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                  <label for="birthday" class="col-form-label">phone</label>-->
+<!--                  <input id="birthday" class="form-control" type="text" [value]="billDTO.customer_phone" readonly>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                  <label for="address" class="col-form-label">email</label>-->
+<!--                  <input id="address" class="form-control" type="text" [value]="billDTO.customer_email" readonly>-->
+<!--                </div>-->
+
+<!--              </div>-->
+<!--              <div class="col-6">-->
+<!--                <div>-->
+<!--                  <label for="gender" class="col-form-label">biển số xe</label>-->
+<!--                  <input id="gender" class="form-control" type="text" [value]="billDTO.car_bks" readonly>-->
+<!--                </div>-->
+
+<!--                <div class="">-->
+<!--                  <label for="phone" class="col-form-label">hãng sản xuât</label>-->
+<!--                  <input id="phone" class="form-control" type="text" [value]="billDTO.car_manufacturing" readonly>-->
+<!--                </div>-->
+<!--                <div class="">-->
+<!--                  <label for="idCard" class="col-form-label">năm sản xuất<span class="text-danger">*</span></label>-->
+<!--                  <input id="idCard" class="form-control" type="text" [value]="billDTO.car_year_manufacturing" readonly>-->
+<!--                </div>-->
+
+<!--              </div>-->
+<!--            </div>-->
+<!--            <p></p>-->
+
+<!--          </mat-tab>-->
+<!--          <mat-tab id="content3" label="3. thông tin bảo hiểm">-->
+
+
+<!--            <div class="mx-5 row">-->
+<!--              <div class="col-6">-->
+<!--                <div>-->
+<!--                  <label>tên bảo hiểm</label>-->
+<!--                  <input readonly type="text" class="form-control" [value]="billDTO.product_name">-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                  <label for="year" class="col-form-label">loại bảo hiểm</label>-->
+<!--                  <input id="year" class="form-control" type="text" [value]="billDTO.product_type_name">-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                  <label for="soKhung" class="col-form-label">giá tiền bảo hiểm</label>-->
+<!--                  <input id="soKhung" class="form-control" type="text" [value]="billDTO.product_price">-->
+<!--                </div>-->
+
+
+<!--              </div>-->
+<!--              <div class="col-6">-->
+<!--                <div>-->
+<!--                  <label>trạng thái thanh toán </label>-->
+<!--                  <input type="text" class="form-control" [value]="billDTO.status_pay" readonly>-->
+<!--                </div>-->
+
+<!--                <div>-->
+<!--                  <label>tổng giá tiền thanh toán </label>-->
+<!--                  <input type="text" class="form-control" [value]="billDTO.total_money" readonly>-->
+<!--                </div>-->
+<!--              </div>-->
+
+
+<!--            </div>-->
+<!--            <div class="button-master-container ">-->
+<!--              <div class="button-container button-back">-->
+
+<!--                <a href="#" data-toggle="tab" data-target="#content1">-->
+<!--                  Trở về </a>-->
+<!--              </div>-->
+<!--              <div class="button-container ">-->
+<!--                <a mat-raised-button class="mat-primary" (click)="goToPayment()">-->
+<!--                  next</a>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <p></p>-->
+
+<!--          </mat-tab>-->
+<!--          <mat-tab id="content4" label="4. hình thức thanh toán">-->
+
+
+<!--            <div class="pymt-radio">-->
+<!--              <div class="row-payment-method payment-row">-->
+<!--                <div class="select-icon">-->
+<!--                  <input type="radio" id="radio3" name="radios" value="pp">-->
+<!--                  <label for="radio3"></label>-->
+<!--                </div>-->
+<!--                <div class="select-txt">-->
+<!--                  <p class="pymt-type-name">thanh toán offline</p>-->
+<!--                  <p class="pymt-type-desc">nhân viên tư vấn sẽ liên hệ với bạn và đến thu tiền tiền thanh toán.</p>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;                    <div class="select-logo">&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <img src="https://www.dropbox.com/s/pycofx0gngss4ef/logo-paypal.png?raw=1" alt="PayPal"/>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </div>&ndash;&gt;-->
+
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="pymt-radio">-->
+<!--              <div class="row-payment-method payment-row">-->
+<!--                <div class="select-icon">-->
+<!--                  <input type="radio" id="radio1" name="radios" value="pp">-->
+<!--                  <label for="radio1"></label>-->
+<!--                </div>-->
+<!--                <div class="select-txt">-->
+<!--                  <p class="pymt-type-name">Paypal</p>-->
+<!--                  <p class="pymt-type-desc">thanh toán online qua Paypal. thanh toán qua tài khoảng PayPal của quí-->
+<!--                    khách</p>-->
+<!--                </div>-->
+<!--                <div class="select-logo">-->
+<!--                  <img src="https://www.dropbox.com/s/pycofx0gngss4ef/logo-paypal.png?raw=1" alt="PayPal"/>-->
+<!--                </div>-->
+
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="button-master-container ">-->
+<!--              <div class="button-container button-back">-->
+
+<!--                <a href="#" data-toggle="tab" data-target="#content1">-->
+<!--                  Trở về </a>-->
+<!--              </div>-->
+<!--              <button mat-raised-button type="submit " class="btn-block mat-primary">thanh toán</button>-->
+
+<!--            </div>-->
+
+<!--          </mat-tab>-->
+
+
+<!--        </mat-tab-group>-->
+<!--      </div>-->
+<!--    </form>-->
+
+
+<!--  </div>-->
+<!--</div>-->
+
+
+<main class="mt-5 pt-4">
+  <div class="container wow fadeIn">
+
+    <!-- Heading -->
+    <h2 class="my-5 h2 text-center">Thông tin thanh toán bảo hiểm </h2>
+
+    <!--Grid row-->
+    <div class="row">
+
+      <!--Grid column-->
+      <div class="col-md-8 mb-4">
+
+        <!--Card-->
+        <div class="card mat-card-content">
+          <form [formGroup]="formBill">
+            <mat-tab-group dynamicHeight mat-stretch-tabs class="example-stretched-tabs mat-elevation-z14"
+                           >
+              <mat-tab id="content1" label="1. thông tin hợp đồng" class="mat-elevation-z4" style="height: 100px;
+  width: 100px">
+                <div class="example-large-box mat-elevation-z4">
+                  <div class="col-6">
+                    <div>
+                      <label for="maBaoHiem" class="col-form-label">Mã hợp đồng</label>
+                      <input class="form-control" id="maBaoHiem" type="text" [value]="billDTO.contract_id" readonly>
+                    </div>
+                    <div>
+                      <label>ngày bắt đầu</label>
+                      <input [value]="billDTO.contract_start_date" type="text" class="form-control" readonly>
+                    </div>
+
+                    <div>
+                      <label for="cus" class="col-form-label">nhân viên tư vấn</label>
+                      <input id="cus" class="form-control" type="text" [value]="billDTO.employee_name" readonly>
+                    </div>
+
+                  </div>
+                  <div class="col-6">
+                    <div class="">
+                      <label for="duration" class="col-form-label">thời hạn theo tháng<span
+                        class="text-danger">*</span></label>
+                      <input id="duration" class="form-control" type="text" [value]="billDTO.contract_duration"
+                             readonly>
+                    </div>
+                    <div>
+                      <label>ngày kết thúc</label>
+                      <input [value]="billDTO.contract_end_date" type="text" class="form-control" readonly>
+                    </div>
+
+                    <div>
+                      <label for="bienKS" class="col-form-label"> trạng thái</label>
+                      <input id="bienKS" class="form-control" type="text" [value]="billDTO.status_approval" readonly>
+                    </div>
+                  </div>
+                </div>
+
+
+                <p></p>
+              </mat-tab>
+              <mat-tab id="content2" label="2. thông tin khách hàng">
+                <div class="example-large-box mat-elevation-z4 row-cols-6">
+                  <div class="col-6">
+                    <div>
+                      <label for="tenkhachhang" class="col-form-label">Tên khách hàng</label>
+                      <input class="form-control" id="tenkhachhang" type="text" [value]="billDTO.customer_name"
+                             readonly>
+                    </div>
+                    <div>
+                      <label for="birthday" class="col-form-label">phone</label>
+                      <input id="birthday" class="form-control" type="text" [value]="billDTO.customer_phone" readonly>
+                    </div>
+                    <div>
+                      <label for="address" class="col-form-label">email</label>
+                      <input id="address" class="form-control" type="text" [value]="billDTO.customer_email" readonly>
+                    </div>
+
+                  </div>
+                  <div class="col-6">
+                    <div>
+                      <label for="gender" class="col-form-label">biển số xe</label>
+                      <input id="gender" class="form-control" type="text" [value]="billDTO.car_bks" readonly>
+                    </div>
+
+                    <div class="">
+                      <label for="phone" class="col-form-label">hãng sản xuât</label>
+                      <input id="phone" class="form-control" type="text" [value]="billDTO.car_manufacturing" readonly>
+                    </div>
+                    <div class="">
+                      <label for="idCard" class="col-form-label">năm sản xuất<span class="text-danger">*</span></label>
+                      <input id="idCard" class="form-control" type="text" [value]="billDTO.car_year_manufacturing"
+                             readonly>
+                    </div>
+
+                  </div>
+                </div>
+
+
+              </mat-tab>
+              <mat-tab id="content3" label="3. thông tin bảo hiểm">
+
+
+                <div class="example-large-box mat-elevation-z5 row-cols-6">
+                  <div class="col-6">
+                    <div>
+                      <label>tên bảo hiểm</label>
+                      <input readonly type="text" class="form-control" [value]="billDTO.product_name">
+                    </div>
+                    <div>
+                      <label for="year" class="col-form-label">loại bảo hiểm</label>
+                      <input id="year" class="form-control" type="text" [value]="billDTO.product_type_name">
+                    </div>
+                    <div>
+                      <label for="soKhung" class="col-form-label">giá tiền bảo hiểm</label>
+                      <input id="soKhung" class="form-control" type="text" [value]="billDTO.product_price">
+                    </div>
+
+
+                  </div>
+                  <div class="col-6">
+                    <div>
+                      <label>Số người đc bảo hiểm </label>
+                      <input type="text" class="form-control" value="2" readonly>
+                    </div>
+                    <div>
+                      <label>trạng thái thanh toán </label>
+                      <input type="text" class="form-control" [value]="billDTO.status_pay" readonly>
+                    </div>
+
+                    <div>
+                      <label> Loại thanh toán </label>
+                      <input type="text" class="form-control" [value]="billDTO.payment_type" readonly>
+                    </div>
+
+                  </div>
+
+
+                </div>
+
+
+              </mat-tab>
+
+
+
+            </mat-tab-group>
+
+
+
+
+          </form>
+
+        </div>
+        <!--/.Card-->
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-4 mb-4">
+
+        <!-- Heading -->
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-muted">bảng kê tạm tính</span>
+          <span class="badge badge-secondary badge-pill"></span>
+        </h4>
+
+        <!-- Cart -->
+        <div class="row"  >
+          <div class="col-xs-7 text-left">
+            tỷ giá VND / USD :
+          </div>
+          <div class="col-xs-5 text-right">
+            $  24000 / 1
+          </div>
+        </div>
+        <div class="row ">
+          <div class="col-xs-7 text-left ">
+            thuế GTGT:
+          </div>
+          <div class="col-xs-5 text-right ">
+            $<span>0</span>
+          </div>
+        </div>
+
+        <hr/>
+        <div class="row " [hidden]="checkButtonPayPal == false">
+          <div class="col-xs-7 text-left ">
+            <h5 style="color:darkred; "><strong>số tiền thanh toán :</strong></h5>
+          </div>
+          <div class="col-xs-5 text-right ">
+            <h5><strong style="color:#8b3b20; ">
+              <span>{{ totalMoney | number: "1.2-2" }} USD</span>
+            </strong></h5>
+          </div>
+        </div>
+        <div class="row " [hidden]="checkButtonPayPal == true">
+          <div class="col-xs-7 text-left ">
+            <h5 style="color:darkred; "><strong>số tiền thanh toán :</strong></h5>
+          </div>
+          <div class="col-xs-5 text-right ">
+            <h5><strong style="color:#8b3b20; ">
+                          <span>{{ this.billDTO.total_money | number: "1.0-0" }}</span>
+            </strong></h5>
+          </div>
+        </div>
+
+
+
+        <!-- Promo code -->
+
+      </div>
+      <div class="col-md-6 d-flex justify-content-start m-0 p-0">
+        <label class="font-weight-bold ">Hình thức thanh toán
+          <select class="ml-2 form-control-sm" (change)="event($event)"
+                  >
+
+            <option value="1">Trực tiếp</option>
+            <option value="2">Thanh toán bằng PayPal</option>
+          </select>
+        </label>
+      </div>
+
+        <div class="col-md-6 d-flex justify-content-end  m-0 p-0" >
+          <button  class="btn  btn-info text-light m-0 p-0 " [hidden]="checkButtonPayPal == true "
+                  style="width: 60%;height:50px;font-size: 13px;font-weight: bolder "
+                  (click)="createBillPaymentByOffline()" >Thanh toán
+          </button>
+          <div class="m-0 p-0"  style="width: 60%;height:50px;font-size: 13px;font-weight: bolder " #paypal
+               [hidden]="checkButtonPayPal == false " > </div>
+        </div>
+
+
+
+      </div>
+
+      <!--Grid column-->
+
+
+    </div>
+    <!--Grid row-->
+
+</main>
+
+
+

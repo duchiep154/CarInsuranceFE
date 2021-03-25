@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+div {
+  display: block;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #333;
+  background-color: #fff;
+  width: 35%;
+}
+.remember input
+{
+  width: 20px;
+  height: 20px;
+  margin-left: 15px;
+  margin-right: 5px;
+  margin-bottom: 8px;
+}
+
+.modal-content, .mylogin-bv {
+  border-width: 1px;
+  color: #333333;
+  gap: normal;
+  line-height: 20px;
+  padding-bottom: 10px;
+}
+
+.modal-header {
+  border-color: #333333;
+  border-width: 0px 0px 1px;
+  color: #333333;
+  font-size: 14px;
+  gap: normal;
+  line-height: 20px;
+  padding: 15px;
+}
+.starts{
+  color: red;
+}
+.regis {
+  border-color: #1964af;
+  color: #1964af;
+  display: inline;
+  font-size: 19px;
+  gap: normal;
+  line-height: 27.1429px;
+  font-weight: bold;
+}
+.btn-dark {
+  background-color: #2196f3;
+}
+.but-login{
+  margin-top: 10px;
+}
+
+#logreg-forms .social-login{
+  width:400px;
+  margin:0 auto;
+  margin-bottom: 14px;
+}
+#logreg-forms .social-btn{
+  font-weight: 100;
+  color:white;
+  width:200px;
+  font-size: 0.9rem;
+}
+#logreg-forms .social-btn:nth-child(1){
+  margin-bottom: 5px;
+}
+#logreg-forms .social-btn span{
+  display: none;
+}
+.facebook-btn{
+  background-color: #3C589C;
+  color: white;
+}
+.google-btn{
+  background-color: red;
+  color: white;
+
+}
+.social-login{
+  margin-top: 10px;
+
+}
+.fab {
+  width: 50px;
+}
+
+.remember{
+  float: right;
+  text-align: right;
+  justify-content: right;
+}
+.or{
+  text-align: center;
+  margin-top: 8px;
+}
+.fa-facebook-f{
+  margin-right: 50px;
+}
+.social1 .fa-color{
+  color: white;
+  background-color: blue;
+}
+.fab{
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+}
+.social .fa-color{
+  color: red;
+}
+
+.border-bottom{
+  border-bottom: 1px solid #ddeeee;
+}
+
+.name_bv{
+  padding-top: 5px;
+}

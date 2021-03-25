@@ -1,0 +1,68 @@
+<div class="col-4 mt-2 mb-2 float-right input-group">
+  <input type="text" class="form-control" (change)="getValueSearch($event.target.value)" placeholder="Nhập tên khách hàng..." aria-label="Recipient's username"
+         aria-describedby="basic-addon2">
+  <div class="input-group-append">
+    <button class="btn btn-outline-primary" (click)="getSearch()" type="button">Tìm kiếm</button>
+  </div>
+</div>
+<div style="height: 450px">
+  <table class="table table-hover">
+    <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Mã hợp đồng</th>
+      <th scope="col">Tên khách hàng</th>
+      <th scope="col">Số tiền</th>
+      <th scope="col">Lý do</th>
+      <th scope="col">Hoạt Động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let acc of accidents; let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td>{{acc.contractDetail.contract.id}}</td>
+      <td>{{acc.contractDetail.contract.car.customer.name}}</td>
+      <td class="text-right">{{acc.money}}</td>
+      <td *ngIf="acc.reason.length > 15">{{acc.reason.substring(0, 15)}}...</td>
+      <td *ngIf="acc.reason.length <= 15">{{acc.reason}}</td>
+      <td>
+        <button class="btn btn-warning" (click)="showInfo(acc.id)" data-toggle="modal" data-target="#exampleModal">
+          Phê Duyệt
+        </button>
+      </td>
+    </tr>
+    <tr *ngIf="accidents.length == 0">
+      <td colspan="6" class="text-center text-warning"><h2>KHÔNG CÓ DỮ LIỆU</h2></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-end">
+    <li class="page-item" (click)="onFirst()" [ngClass]="pageClicked==0?'disabled':''">
+      <a class="page-link">Đầu</a>
+    </li>
+    <li class="page-item" (click)="onPrevious()" [ngClass]="pageClicked==0?'disabled':''">
+      <a class="page-link">Trước</a>
+    </li>
+    <li *ngIf="pageClicked != 0" class="page-item" (click)="onSubmit(pages[pageClicked-1])">
+      <a class="page-link">{{pageClicked}}</a>
+    </li>
+    <li [ngClass]="(pageClicked == pages[pageClicked]) ? 'active' : ''" class="page-item"
+        (click)="onSubmit(pages[pageClicked])">
+      <a class="page-link">{{pageClicked + 1}}</a>
+    </li>
+    <li *ngIf="pageClicked < pages.length -1" class="page-item" (click)="onSubmit(pages[pageClicked+1])">
+      <a class="page-link">{{pageClicked + 2}}</a>
+    </li>
+    <li *ngIf="pageClicked < pages.length -2" class="page-item">
+      <a class="page-link">...</a>
+    </li>
+    <li class="page-item" (click)="onNext()" [ngClass]="pageClicked==totalPages-1?'disabled':''">
+      <a class="page-link">Sau</a>
+    </li>
+    <li class="page-item" (click)="onLast()" [ngClass]="pageClicked==totalPages-1?'disabled':''"><a
+      class="page-link">Cuối</a></li>
+  </ul>
+</nav>

@@ -1,0 +1,109 @@
+<ng-template #customLoadingTemplate>
+</ng-template>
+
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
+
+<div class="col-12 float-right mt-3">
+  <h3>Danh sách Đền bù</h3>
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+         aria-controls="nav-home" aria-selected="true">Danh Sách Đợi Phê Duyệt</a>
+      <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+         aria-controls="nav-profile" aria-selected="false">Danh Sách Đã Phê Duyệt</a>
+      <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
+         aria-controls="nav-contact" aria-selected="false">Danh Sách Không Phê Duyệt</a>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+      <app-waiting-approval (voteId)="voteId($event)"></app-waiting-approval>
+    </div>
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+      <app-was-approval></app-was-approval>
+    </div>
+    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+      <app-not-approval (voteId)="voteId($event)"></app-not-approval>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content" id="contentPdf">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Màn Hình Phê Duyệt</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-6 float-left">
+          <p class="col-7 float-left">Mã khách hàng:</p><p class="col-4 float-left">
+            {{accident.customerId}}
+          </p>
+          <p class="col-7 float-left">Họ tên:</p><p class="col-4 float-left">
+            {{accident.customerName}}
+          </p>
+          <p class="col-7 float-left">Địa chỉ:</p><p class="col-4 float-left">
+            {{accident.customerAddress}}
+          </p>
+          <p class="col-7 float-left">Biển số:</p><p class="col-4 float-left">
+            {{accident.numberPlate}}
+          </p>
+          <p class="col-7 float-left">Số khung:</p><p class="col-4 float-left">
+            {{accident.carIdNumber}}
+          </p>
+          <p class="col-7 float-left">Số máy:</p><p class="col-4 float-left">
+            {{accident.manufacturer}}
+          </p>
+          <p class="col-7 float-left">Lý do bồi thường:</p><p class="col-4 float-left">
+            {{accident.accidentReason}}
+        </p>
+        </div>
+        <div class="col-6 float-left">
+          <p class="col-12">Hình ảnh thực tế</p>
+          <img *ngFor="let img of listImg" src="{{img}}" (click)="showBigImg(img)" class="col-5" height="100px">
+          <div [style]="style" id="show">
+            <p class="float-right" (click)="closeBigImg()">Close X</p>
+            <img [src]="src" id="expandedImg" height="250px" style="box-shadow: 0px 0px 15px 5px black">
+          </div>
+          <div class="col-12 mt-4">
+            <p class="col-8 float-left mt-1">Tỉ lệ thiệt hại:</p>
+            <select (change)="changeRatio($event.target.value)" class="form-control col-4 float-left">
+              <option [value]="0">0%</option>
+              <option [value]="10">10%</option>
+              <option [value]="20">20%</option>
+              <option [value]="30">30%</option>
+              <option [value]="40">40%</option>
+              <option [value]="50">50%</option>
+              <option [value]="60">60%</option>
+              <option [value]="70">70%</option>
+              <option [value]="80">80%</option>
+              <option [value]="90">90%</option>
+              <option [value]="100">100%</option>
+            </select>
+          </div>
+          <div class="col-12 mt-4">
+            <p class="col-8 float-left mt-1">Số tiền cẩn bồi thường:</p>
+            <input class="form-control col-12 float-left" [value]="checkMoney" readonly>
+          </div>
+          <div class="col-12 mt-4">
+            <p class="col-8 float-left mt-1">Lý do không duyệt:</p>
+            <textarea class="form-control col-12 float-left" [(ngModel)]="accident.notApprovalReason" (input)="changeNotApprovalReason($event.target.value)" [readOnly]="checkRatio"></textarea>
+          </div>
+          <div class="col-12 mt-4">
+            <p class="col-12 float-left mt-1 text-danger">{{showValidNull}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+        <button type="button" (click)="notApprovalSendMai()" class="btn btn-info">Không Đền Bù</button>
+        <button type="button" (click)="wasApproval()" class="btn btn-warning">Đền Bù</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,263 @@
+<!-- //update  cus -->
+<app-header></app-header>
+<div style="padding-top: 23px">
+    <section class="breadcrumbs">
+
+        <div id="customer" class="container" style="min-height: 600px;padding-bottom: 100px;">
+            <div class="row">
+                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                    <!-- Sidebar -->
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-action" data-toggle="list"
+                            routerLink="/client-edit-customer">Thông tin tài
+                            khoản</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list"
+                            routerLink="/client-edit-password">Thay đổi mật khẩu</a>
+                    </div>
+
+                </div>
+                <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9">
+                    <h3 style="color:yellowgreen;">{{displayMessage}}</h3>
+                    <i class="fas fa-id-card"></i>
+                    <span id="information" class="card-title">Thông tin tài khoản</span>
+                    <hr>
+                    <form [formGroup]="customerListUpdate">
+                        <div class="row">
+                            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                                <div id="update">
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Họ và tên: (<span
+                                                style="color: red">*</span>)
+                                        </label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" formControlName="name"
+                                                placeholder="Họ và tên" required autofocus>
+                                            <p *ngIf="customerListUpdate.get('name').hasError('required')"
+                                                class="text-danger">
+                                                Vui lòng điền vào trường này</p>
+                                            <p *ngIf="customerListUpdate.get('name').hasError('pattern') "
+                                                class="text-danger">
+                                                Tên riêng chỉ bao gồm chữ cái, không thể chứa ký tự đặc biệt và chữ số, độ dài tối đa 50 kí tự, tối thiểu 4 kí tự
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Điện thoại: (<span
+                                                style="color: red">*</span>)
+                                        </label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" formControlName="phone"
+                                                placeholder="Số điện thoại" required autofocus>
+                                            <p *ngIf="customerListUpdate.get('phone').hasError('required') "
+                                                class="text-danger">Vui lòng điền vào trường này</p>
+                                            <p *ngIf="customerListUpdate.get('phone').hasError('pattern') "
+                                                class="text-danger">
+                                                Số điện thoại chưa đúng định dạng(0xxxxxxxxx)
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Email:(<span style="color: red">*</span>)
+                                        </label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" formControlName="email" (change)="getEmail($event.target.value)"
+                                                placeholder="Email" required autofocus>
+                                            <p *ngIf="customerListUpdate.get('email').hasError('required') "
+                                                class="text-danger">Vui lòng điền vào trường này</p>
+                                            <p *ngIf="customerListUpdate.get('email').hasError('pattern')"
+                                                class="text-danger">
+                                                Vui lòng nhập đúng định dạng abc@abc.abc
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Giới tính: (<span
+                                                style="color: red">*</span>)
+                                        </label>
+                                        <div class="col-sm-7">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" value="Nam"
+                                                    formControlName="gender" ng-checked="gender.selected">
+                                                <label class="form-check-label">Nam</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" value="Nữ"
+                                                    formControlName="gender" ng-checked="gender.selected">
+                                                <label class="form-check-label" checked>Nữ</label>
+                                            </div>
+                                            <p *ngIf="customerListUpdate.get('gender').hasError('required') "
+                                                class="text-danger">Vui lòng điền vào trường này</p>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">CMND: (<span style="color: red">*</span>)
+                                        </label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" formControlName="idCard"
+                                                placeholder="Nhập CMNN" required autofocus>
+                                            <p *ngIf="customerListUpdate.get('idCard').hasError('required') "
+                                                class="text-danger">Vui lòng điền vào trường này</p>
+                                            <p *ngIf="customerListUpdate.get('idCard').hasError('pattern')"
+                                                class="text-danger">
+                                                Chứng minh nhân dân phải có 9 số
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Ngày sinh: (<span
+                                                style="color: red">*</span>)
+                                        </label>
+                                        <div class="col-sm-7">
+                                            <input type="date" class="form-control" formControlName="dateOfBirth"
+                                                placeholder="Ngày sinh" required autofocus>
+                                            <p *ngIf="customerListUpdate.get('dateOfBirth').hasError('required') "
+                                                class="text-danger">Vui lòng điền vào trường này</p>
+
+                                            <p class="text-danger"
+                                                *ngIf="customerListUpdate.hasError('forbiddenDateOfBirth','dateOfBirth')">
+                                                Khách hàng cần đủ 18 tuổi trở lên</p>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Địa chỉ: (<span
+                                                style="color: red">*</span>)
+                                        </label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" formControlName="address"
+                                                placeholder="Địa chỉ chi tiết" required autofocus>
+                                            <p *ngIf="customerListUpdate.get('address').hasError('required') "
+                                                class="text-danger">Vui lòng điền vào trường này</p>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Tỉnh/Thành phố: (<span
+                                                style="color: red">*</span>)
+                                        </label>
+                                        <div class="col-sm-7">
+                                            <!-- <input type="text" class="form-control" formControlName="city"
+                                                placeholder="Tỉnh/Thành phố" required autofocus> -->
+                                                <select class=" form-control" id="address" formControlName="city">
+                                                    <option>Thành phố Hà Nội</option>
+                                                    <option>Tỉnh Hà Giang</option>
+                                                    <option>Tỉnh Cao Bằng</option>
+                                                    <option>Tỉnh Bắc Kạn</option>
+                                                    <option>Tỉnh Tuyên Quang</option>
+                                                    <option>Tỉnh Lào Cai</option>
+                                                    <option>Tỉnh Điện Biên</option>
+                                                    <option>Tỉnh Lai Châu</option>
+                                                    <option>Tỉnh Sơn La</option>
+                                                    <option>Tỉnh Yên Bái</option>
+                                                    <option>Tỉnh Hoà Bình</option>
+                                                    <option>Tỉnh Thái Nguyên</option>
+                                                    <option>Tỉnh Lạng Sơn</option>
+                                                    <option>Tỉnh Quảng Ninh</option>
+                                                    <option>Tỉnh Bắc Giang</option>
+                                                    <option>Tỉnh Phú Thọ</option>
+                                                    <option>Tỉnh Vĩnh Phúc</option>
+                                                    <option>Tỉnh Bắc Ninh</option>
+                                                    <option>Tỉnh Hải Dương</option>
+                                                    <option>Thành phố Hải Phòng</option>
+                                                    <option>Tỉnh Hưng Yên</option>
+                                                    <option>Tỉnh Thái Bình</option>
+                                                    <option>Tỉnh Hà Nam</option>
+                                                    <option>Tỉnh Nam Định</option>
+                                                    <option>Tỉnh Ninh Bình</option>
+                                                    <option>Tỉnh Thanh Hóa</option>
+                                                    <option>Tỉnh Nghệ An</option>
+                                                    <option>Tỉnh Hà Tĩnh</option>
+                                                    <option>Tỉnh Quảng Bình</option>
+                                                    <option>Tỉnh Quảng Trị</option>
+                                                    <option>Tỉnh Thừa Thiên Huế</option>
+                                                    <option>Thành phố Đà Nẵng</option>
+                                                    <option>Tỉnh Quảng Nam</option>
+                                                    <option>Tỉnh Quảng Ngãi</option>
+                                                    <option>Tỉnh Bình Định</option>
+                                                    <option>Tỉnh Phú Yên</option>
+                                                    <option>Tỉnh Khánh Hòa</option>
+                                                    <option>Tỉnh Ninh Thuận</option>
+                                                    <option>Tỉnh Bình Thuận</option>
+                                                    <option>Tỉnh Kon Tum</option>
+                                                    <option>Tỉnh Gia Lai</option>
+                                                    <option>Tỉnh Đắk Lắk</option>
+                                                    <option>Tỉnh Đắk Nông</option>
+                                                    <option>Tỉnh Lâm Đồng</option>
+                                                    <option>Tỉnh Bình Phước</option>
+                                                    <option>Tỉnh Tây Ninh</option>
+                                                    <option>Tỉnh Bình Dương</option>
+                                                    <option>Tỉnh Đồng Nai</option>
+                                                    <option>Tỉnh Bà Rịa - Vũng Tàu</option>
+                                                    <option>Thành phố Hồ Chí Minh</option>
+                                                    <option>Tỉnh Long An</option>
+                                                    <option>Tỉnh Tiền Giang</option>
+                                                    <option>Tỉnh Bến Tre</option>
+                                                    <option>Tỉnh Trà Vinh</option>
+                                                    <option>Tỉnh Vĩnh Long</option>
+                                                    <option>Tỉnh Đồng Tháp</option>
+                                                    <option>Tỉnh An Giang</option>
+                                                    <option>Tỉnh Kiên Giang</option>
+                                                    <option>Thành phố Cần Thơ</option>
+                                                    <option>Tỉnh Hậu Giang</option>
+                                                    <option>Tỉnh Sóc Trăng</option>
+                                                    <option>Tỉnh Bạc Liêu</option>
+                                                    <option>Tỉnh Cà Mau</option>
+                                                  </select>
+                                            <p *ngIf="customerListUpdate.get('city').hasError('required') "
+                                                class="text-danger">
+                                                Vui lòng điền vào trường này</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                <div>
+                                    <div style="text-align: center;">
+                                        <img id="img" style="width: 150px; height: 150px" [src]="imgSrc">
+                                        <div class="form-group">
+                                            <label>chọn file để tải ảnh lên</label>
+                                            <input class="col-12 form-control" id="imgUrl" type="file"
+                                                (change)="showPreview($event)">
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label"> </label>
+                            <div class="col-sm-1">
+                                <button type="submit" class="btn btn-success" [disabled]="customerListUpdate.invalid" (click)="updateCustomer()">Lưu</button>
+                            </div>
+                            <div class="col-sm-1">
+                                <button class="btn btn-warning" type="submit" (click)="openDialogCancel()">Huỷ</button>
+                            </div>
+                            <div class="col-sm-1">
+                                <button class="btn btn-danger" type="reset">Xoá dữ
+                                    liệu</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<app-footer></app-footer>

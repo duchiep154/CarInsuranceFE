@@ -1,0 +1,146 @@
+<div class="des-regi">
+</div>
+<div class="px-3 pb-2 border-bottom">
+  <span class="regis">Đăng Ký</span>
+  <div><span
+    class="text-sm-left text-secondary">Đăng ký tài khoản để quản lý đơn hàng và điền thông tin nhanh chóng.</span></div>
+</div>
+<div class="px-3 mt-4">
+  <form focusInvalidInput [formGroup]="createformGroup" (ngSubmit)="onSubmitRes()" *ngIf="!isSuccessful">
+
+
+    <div class="form-group d-flex justify-content-between">
+      <label class=" ">Tên khách hàng: (<span class="starts">*</span>)</label>
+      <input type="text" class="form-control " formControlName="name" (input)="errNameCustomer($event.target.value)">
+    </div>
+    <div>
+      <p class="text-danger" *ngIf="isNameCustomerFailed">{{listError.name}}</p>
+
+      <p *ngIf="createformGroup.get('name').hasError('required') && createformGroup.get('name').dirty"
+         class="text-danger">Tên khách hàng không được để trống.</p>
+      <p *ngIf="createformGroup.get('name').hasError('pattern')"
+         class="text-danger">Vui lòng nhập tên đúng định dạng.</p>
+    </div>
+    <div class="form-group d-flex justify-content-between">
+      <label class=" ">Email: (<span class="starts">*</span>)</label>
+      <input #inputEmail type="text" class="form-control " formControlName="email"
+             (input)="errEmail($event.target.value)">
+    </div>
+    <div class="form-group errBE" style="clear: both">
+<!--      <p class="text-danger" *ngIf="isEmailFailed">{{errorMessageExistEmail}}</p>-->
+      <p class="text-danger" >{{listError.existEmail}}</p>
+
+      <p class="text-danger" *ngIf="isEmailNullFailed">{{listError.email}}</p>
+      <p *ngIf="createformGroup.get('email').hasError('required') && createformGroup.get('email').dirty"
+         class="text-danger">Email không được để trống.</p>
+      <p *ngIf="createformGroup.get('email').hasError('pattern')" class="text-danger">Vui lòng nhập đúng định dạng
+        Mail.</p>
+    </div>
+
+    <div class="form-group d-flex justify-content-between">
+      <label class=" ">Số điện thoại: (<span class="starts">*</span>)</label>
+      <input type="text" class="form-control " formControlName="phone" (input)="errPhone($event.target.value)">
+    </div>
+    <div class="form-group" style="clear: both">
+      <p class="text-danger" *ngIf="isPhoneFailed">{{listError.phone}}</p>
+      <p *ngIf="createformGroup.get('phone').hasError('required') && createformGroup.get('phone').dirty"
+         class="text-danger">
+        Số điện thoại không được để trống</p>
+      <p *ngIf="createformGroup.get('phone').hasError('pattern')" class="text-danger">Số điện thoại chưa đúng định
+        dạng.</p>
+    </div>
+
+    <div class="form-group d-flex justify-content-between ">
+      <label class="">CMND: (<span class="starts">*</span>)</label>
+      <input #inputIdcard type="text" class="form-control " formControlName="idCard"
+             (input)="errIdcard($event.target.value)">
+    </div>
+    <div class="form-group" style="clear: both">
+<!--      <p class="text-danger" *ngIf="isIdcardFailed">{{errorMessageExistIdcard}}</p>-->
+      <p class="text-danger" >{{listError.existIdcard}}</p>
+      <p class="text-danger" *ngIf="isIdcardNullFailed">{{listError.idCard}}</p>
+
+      <p *ngIf="createformGroup.get('idCard').hasError('required') && createformGroup.get('idCard').dirty"
+         class="text-danger">Chứng minh nhân dân không được để trống</p>
+      <p *ngIf="createformGroup.get('idCard').hasError('pattern')" class="text-danger">Chứng minh nhân dân phải có 9
+        số.</p>
+    </div>
+
+
+    <div class="form-group d-flex justify-content-between">
+      <label class=" ">Địa chỉ: (<span class="starts">*</span>)</label>
+      <input type="text" class="form-control " formControlName="address" (input)="errAddress($event.target.value)">
+    </div>
+    <div class="form-group" style="clear: both">
+      <p class="text-danger" *ngIf="isAddressFailed">{{listError.address}}</p>
+      <p *ngIf="createformGroup.get('address').hasError('required') && createformGroup.get('address').dirty"
+         class="text-danger">Địa chỉ không được để trống.</p>
+    </div>
+    <div class="form-group d-flex justify-content-between">
+      <label class="">Tên tài khoản: (<span class="starts">*</span>)</label>
+      <input type="text" #inputUsername class="form-control" formControlName="username" id="username"
+             (input)="errName($event.target.value)"/>
+    </div>
+    <div>
+      <!--      <p class="text-danger" *ngIf="isUsernameFailed">{{errorMessageExistUsername}}</p>-->
+      <p class="text-danger" *ngIf="isUsernameNullFailed">{{listError.name}}</p>
+      <p class="text-danger" >{{listError.existUser}}</p>
+
+    </div>
+    <div>
+      <p *ngIf="createformGroup.get('username').hasError('required') && createformGroup.get('username').dirty"
+         class="text-danger">Tên tài khoản không được để trống.</p>
+      <p *ngIf="createformGroup.get('username').hasError('pattern')"
+         class="text-danger">Tên tài khoản phải nhiều hơn 8 ký tự gồm cả chữ và số.</p>
+    </div>
+
+
+    <div class="form-group  d-flex justify-content-between">
+      <label class=" ">Mật khẩu: (<span class="starts">*</span>)</label>
+      <input type="password" class="form-control " formControlName="password"
+             (input)="errPassword($event.target.value)"/>
+    </div>
+    <div>
+      <p class="text-danger" *ngIf="isPasswordNullFailed">{{listError.password}}</p>
+      <p *ngIf="createformGroup.get('password').hasError('password') && createformGroup.get('password').dirty"
+         class="text-danger">Vui lòng nhập mật khẩu.</p>
+      <p *ngIf="createformGroup.get('password').hasError('pattern')"
+         class="text-danger">Mật khẩu phải có ít nhất 8 ký tự gồm cả chữ và số.</p>
+    </div>
+
+
+    <div class="form-group  d-flex justify-content-between">
+      <label class=" ">Xác nhận mật khẩu: (<span class="starts">*</span>)</label>
+      <input type="password" #inputCheckPassword class="form-control " formControlName="checkPassword"
+             (input)="errCheckPassword($event.target.value)"/>
+    </div>
+    <div>
+      <p
+        *ngIf="createformGroup.get('checkPassword').hasError('checkPassword') && createformGroup.get('checkPassword').dirty"
+        class="text-danger">Vui lòng xác nhận mật khẩu.</p>
+<!--      <p class="text-danger" *ngIf="isCheckPasswordNullFailed">{{listError.checkPassword}}</p>-->
+      <p class="text-danger" *ngIf="isPasswordFailed">{{errorMessagePassword}}</p>
+      <p class="text-danger" >{{listError.checkPass}}</p>
+
+    </div>
+    <div class="form-group text-center">
+      <div class="form-group">
+        <!--          <button type="reset" class="btn btn-secondary">Xóa Biểu Mẫu</button>-->
+      </div>
+      <div class="alert alert-warning" *ngIf="isSignUpFailed" style="color: red">
+        Đăng ký thất bại!<br/>
+        <!--        {{ errorMessage }}-->
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <input type="button" (click)="closeDialog()" class="btn btn-warning " value="Hủy bỏ">
+      <button class="btn btn-primary ml-2">Đăng ký</button>
+    </div>
+
+  </form>
+
+</div>
+<div class="alert alert-success" *ngIf="isSuccessful">
+  Bạn đã đăng ký thành công.
+</div>
+<!--</div>-->

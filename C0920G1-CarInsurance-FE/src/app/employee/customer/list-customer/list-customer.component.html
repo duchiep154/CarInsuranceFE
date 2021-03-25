@@ -1,0 +1,123 @@
+<!--thế anh-->
+<div class="mt-3">
+  <div class="row">
+    <div class="col-3 mt-3 pr-0"><h3>Danh Sách Khách Hàng</h3></div>
+    <div class="col-9 mt-3 px-0">
+      <div class="row px-4">
+        <div class="col-4 px-3 ">
+          <mat-form-field appearance="fill">
+            <mat-label>Chọn một khoảng thời gian</mat-label>
+            <mat-date-range-input [formGroup]="range" (keyup.enter)="searchByBirthday(0)" [rangePicker]="picker">
+              <input [(ngModel)]="birthdayStart" matStartDate formControlName="start" placeholder="Start date">
+              <input [(ngModel)]="birthdayEnd" matEndDate formControlName="end" placeholder="End date" >
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+            <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Sai định dạng ngày tháng năm</mat-error>
+            <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Sai định dạng ngày tháng năm</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-4 px-2">
+          <mat-form-field appearance="fill" [formGroup]="range1" (keyup.enter)="searchByContractStartDay(0)">
+            <mat-label>Chọn thời gian bắt đầu</mat-label>
+            <input matInput [matDatepicker]="picker1" [(ngModel)]="dayByContract" formControlName="start1">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <mat-error *ngIf="range1.controls.start1.hasError('matInputInvalid')">Sai định dạng ngày tháng năm</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="input-group col-4 px-3 align-items-center">
+          <input id="addLink" type="text" class="form-control" placeholder="Nhập tên hoặc thành phố"
+                 aria-label="Recipient's username"
+                 (keyup.enter)="search(0)" aria-describedby="basic-addon2" [(ngModel)]="searchInput">
+          <div class="input-group-append float-left">
+            <button id="linkAdd" class="btn btn-primary" type="submit" (click)="search(0)" data-toggle="tooltip" data-placement="top" title="Tìm kiếm"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div>
+    <button class="btn btn-dark mr-2 margin-bottom" [routerLink]="['/employee/customers-create']"data-toggle="tooltip" data-placement="top" title="Thêm mới"><i class="fas fa-user-plus"></i></button>
+    <button type="button" (click)="reaload()" class="btn btn-danger ml-2"><i class="fas fa-undo-alt"></i></button>
+  </div>
+  <table class="table table-hover" style="font-size: 12px;">
+    <thead class="thead-light">
+    <tr>
+      <th>STT</th>
+      <th scope="col" (click)="onSortingChange('name')">Họ tên <i class="fas fa-sort"></i></th>
+      <th scope="col" (click)="onSortingChange('gender')">Giới tính <i class="fas fa-sort"></i></th>
+      <th>Ngày Sinh</th>
+      <th>Số điện thoại</th>
+      <th>Email</th>
+      <th scope="col" (click)="onSortingChange('address')">Địa chỉ <i class="fas fa-sort"></i></th>
+      <th scope="col" (click)="onSortingChange('city')">Thành phố <i class="fas fa-sort"></i></th>
+      <th scope="col" class="text-center" style="width: 20%">Hoạt động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let customer of customers, let i = index">
+      <td>{{i+1 + (pageClicked * size)}}</td>
+      <td>{{customer.name}}</td>
+      <td [ngSwitch]="customer.gender">
+        <span *ngSwitchCase="1">Nam</span>
+        <span *ngSwitchCase="0">Nữ</span>
+        <span *ngSwitchDefault>Khác</span>
+      </td>
+      <td>{{customer.dateOfBirth | date:"dd-MM-yyyy"}}</td>
+      <td>{{customer.phone}}</td>
+      <td>{{customer.email}}</td>
+      <td class = "a">{{customer.address}}</td>
+      <td>{{customer.city}}</td>
+      <td class="text-center">
+        <button (click)="openEditDialog(customer.id)" class="btn btn-sm btn-warning mr-3" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="fas fa-tools"></i></button>
+        <button (click)=openDeleteDialog(customer.id) class="btn btn-sm btn-danger mr-3" data-toggle="tooltip" data-placement="top" title="Xóa"><i class="far fa-trash-alt"></i></button>
+        <button (click)="openDetailDialog(customer.id)" class="btn btn-sm btn-success mr-3" data-toggle="tooltip" data-placement="top" title="Chi tiết"><i class="fas fa-info"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="col-12">
+    <nav aria-label="Page navigation example" class="float-right">
+      <ul class="pagination">
+        <li class="page-item" (click)="onFirst()" [ngClass]="pageClicked==0?'disabled':''">
+          <a class="page-link">Đầu</a>
+        </li>
+        <li class="page-item" (click)="onPrevious()" [ngClass]="pageClicked==0?'disabled':''">
+          <a class="page-link">Sau</a>
+        </li>
+        <li *ngIf="pageClicked != 0" class="page-item" (click)="onSubmit(pages[pageClicked-1])">
+          <a class="page-link">{{pageClicked}}</a>
+        </li>
+        <li [ngClass]="(pageClicked == pages[pageClicked]) ? 'active' : ''" class="page-item"
+            (click)="onSubmit(pages[pageClicked])">
+          <a class="page-link">{{pageClicked + 1}}</a>
+        </li>
+        <li *ngIf="pageClicked < pages.length -1" class="page-item" (click)="onSubmit(pages[pageClicked+1])">
+          <a class="page-link">{{pageClicked + 2}}</a>
+        </li>
+        <li *ngIf="pageClicked < pages.length -2" class="page-item">
+          <a class="page-link">...</a>
+        </li>
+        <li *ngIf="pageClicked < pages.length-2" class="page-item" (click)="onLast()">
+          <a class="page-link">{{pages[pages.length - 1] + 1}}</a>
+        </li>
+        <li class="page-item" (click)="onNext()" [ngClass]="pageClicked==totalPages-1?'disabled':''">
+          <a class="page-link">Trước</a>
+        </li>
+        <li class="page-item" (click)="onLast()" [ngClass]="pageClicked==totalPages-1?'disabled':''"><a
+          class="page-link">Cuối</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<script>
+  document.querySelector("#addLink").addEventListener("keyup", event => {
+    if (event.key !== "Enter") return; // Use `.key` instead.
+    document.querySelector("#linkAdd").click(); // Things you want to do.
+    event.preventDefault(); // No need to `return false;`.
+  });
+</script>

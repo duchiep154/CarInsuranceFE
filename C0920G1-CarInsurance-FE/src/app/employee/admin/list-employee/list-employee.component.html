@@ -1,0 +1,81 @@
+<div class="col-12 float-right mt-3">
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+      <h3 class="col-6 mt-3 float-left">Danh Sách Nhân Viên</h3>
+      <div class="col-6 mt-3 float-right input-group">
+        <button type="button" class="btn btn-dark mr-2" [routerLink]="['/admin/employee/create']" data-toggle="tooltip" data-placement="top" title="Thêm mới"><i class="fas fa-user-plus"></i></button>
+        <input id="addLink" type="text" class="form-control float-left" placeholder="Nhập tên hoặc số điện thoại"
+               aria-label="Recipient's username"
+               (keyup.enter)="search(0)" aria-describedby="basic-addon2" [(ngModel)]="searchInput">
+        <div class="input-group-append float-left">
+          <button id="linkAdd" class="btn btn-outline-primary" type="submit" (click)="search(0)" data-toggle="tooltip" data-placement="top" title="Tìm kiếm"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+
+      <table class="table table-hover" style="font-size: 12px;">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col" style="width: 5%">STT</th>
+          <th scope="col" style="width: 15%" (click)="onSortingChange('name')">Họ tên <i class="fas fa-sort"></i></th>
+          <th scope="col" style="width: 13%" (click)="onSortingChange('dateOfBirth')">Ngày sinh <i class="fas fa-sort"></i></th>
+          <th scope="col" style="width: 12%">Điện thoại</th>
+          <th scope="col" style="width: 14%" (click)="onSortingChange('city')">Thành phố <i class="fas fa-sort"></i></th>
+          <th scope="col" style="width: 12%">Chức vụ</th>
+          <th scope="col" style="width: 14%">Tài khoản</th>
+          <th scope="col" style="width: 15%">Hoạt Động</th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let e of employees; let i = index">
+        <tr>
+          <th scope="row">{{i + 1 + (pageClicked * size)}}</th>
+          <td>{{e.name}}</td>
+          <td>{{e.dateOfBirth}}</td>
+          <td>{{e.phone}}</td>
+          <td>{{e.city}}</td>
+          <td>{{e.position.name}}</td>
+          <td>{{e.users.username}}</td>
+          <td>
+            <button class="btn btn-warning btn-sm" [routerLink]="['/admin/employee/update/', e.id]" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa"><i class="fas fa-tools"></i></button>
+            <button class="btn btn-danger btn-sm ml-2" (click)="deleteEmployee(e.id)" type="submit" data-toggle="tooltip" data-placement="top" title="Xóa"><i class="far fa-trash-alt"></i></button>
+            <button (click)="openDetailDialog(e.id)" class="btn btn-success btn-sm ml-2"data-toggle="tooltip" data-placement="top" title="Chi tiết"><i class="fas fa-info"></i></button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <nav aria-label="Page navigation example" style="float: right">
+        <ul class="pagination">
+          <li class="page-item" (click)="onFirst()" [ngClass]="pageClicked==0?'disabled':''">
+            <a class="page-link">Đầu</a>
+          </li>
+          <li class="page-item" (click)="onPrevious()" [ngClass]="pageClicked==0?'disabled':''">
+            <a class="page-link">Sau</a>
+          </li>
+          <li *ngIf="pageClicked != 0" class="page-item" (click)="onSubmit(pages[pageClicked-1])">
+            <a class="page-link">{{pageClicked}}</a>
+          </li>
+          <li [ngClass]="(pageClicked == pages[pageClicked]) ? 'active' : ''" class="page-item"
+              (click)="onSubmit(pages[pageClicked])">
+            <a class="page-link">{{pageClicked + 1}}</a>
+          </li>
+          <li *ngIf="pageClicked < pages.length -1" class="page-item" (click)="onSubmit(pages[pageClicked+1])">
+            <a class="page-link">{{pageClicked + 2}}</a>
+          </li>
+          <li *ngIf="pageClicked < pages.length -2" class="page-item">
+            <a class="page-link">...</a>
+          </li>
+          <li *ngIf="pageClicked < pages.length-2" class="page-item" (click)="onLast()">
+            <a class="page-link">{{pages[pages.length - 1] + 1}}</a>
+          </li>
+          <li class="page-item" (click)="onNext()" [ngClass]="pageClicked==totalPages-1?'disabled':''">
+            <a class="page-link">Trước</a>
+          </li>
+          <li class="page-item" (click)="onLast()" [ngClass]="pageClicked==totalPages-1?'disabled':''"><a
+            class="page-link">Cuối</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </div>
+</div>
+

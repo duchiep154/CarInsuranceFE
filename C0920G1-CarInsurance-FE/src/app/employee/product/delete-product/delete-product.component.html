@@ -1,0 +1,37 @@
+<!--dialog này hiện ra khi được phép xóa -->
+<div *ngIf="isExist; else elseBlock">
+  <h5>Xác nhận xóa hẳn khỏi kho dữ liệu?</h5>
+  <hr>
+  <b *ngIf="check" class="text-danger">{{messageErrorIdDelete}}</b>
+  <p class="my-3">Bạn chắc chắn muốn xóa
+    <strong>
+      <span style="color: red">{{productName}}</span>
+    </strong> không?
+  </p>
+  <p class="my-3">(Thao tác này không phục hồi lại được)</p>
+  <div class="row d-flex justify-content-end">
+    <button mat-dialog-close
+            class="btn btn-success mr-2" style="width: 100px">Hủy bỏ</button>
+    <button (click)="deleteProduct()"
+            class="btn btn-warning" style="width: 100px">Xóa</button>
+  </div>
+</div>
+
+<!--dialog này hiện ra khi sản phẩm không được xóa -->
+<ng-template #elseBlock>
+  <h5>Làm ơn xem lại lựa chọn của bạn!</h5>
+  <hr>
+  <p style="color: red">
+    Không xóa được vì sản phẩm này đang được sử dụng trong hợp đồng
+  </p>
+  <b *ngIf="check" class = "text-danger">{{messageErrorIdDelete}}</b>
+  <div class="row d-flex justify-content-end">
+    <button mat-dialog-close class="btn btn-success mr-2" style="width: 100px">Hủy bỏ</button>
+  </div>
+</ng-template>
+
+
+
+
+
+

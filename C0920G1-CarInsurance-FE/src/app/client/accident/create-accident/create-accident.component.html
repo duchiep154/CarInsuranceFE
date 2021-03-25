@@ -1,0 +1,145 @@
+<app-header></app-header>
+<div style="padding-top: 23px">
+  <!-- ======= Breadcrumbs ======= -->
+  <section class="breadcrumbs">
+    <!--    content-->
+    <div class="container" style="min-height: 600px">
+      <h1 class="text-center pt-3">Màn hình thẩm định</h1>
+      <div class="row pt-5">
+        <div class="col-8">
+
+          <form [formGroup]="formCreateAccident">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Mã số hợp đồng(<span>*</span>):</label>
+              <div class="col-sm-8">
+                <label>{{contractDetail.id}}</label>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Lý do bồi thường(<span>*</span>):</label>
+              <div class="col-sm-8">
+                <textarea type="text" class="form-control" style="height: 150px" formControlName="reason"></textarea>
+                <label style="color: red">{{listError.reason}}</label>
+                <p style="color: red" *ngIf="formCreateAccident.get('reason').hasError('required')
+                 && formCreateAccident.get('reason').dirty">Không được để trống</p>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Hình ảnh thực tế(<span>*</span>):</label>
+              <div class="col-sm-8">
+                <div class="form-inline">
+                  <input class="col-6 form-control" (change)="onFileSelected($event)" id="imgUrl" type="file" hidden>
+                  <button class="btn btn-outline-success" (click)="showImg()">Chọn ảnh</button>
+
+                </div>
+                <label *ngIf="!check" style="color: red">{{listError.img}}</label>
+                <div class="form-inline pt-3" *ngIf="check">
+                  <img id="img-accident" style="width: 100px">
+                </div>
+              </div>
+            </div>
+          </form>
+
+        </div>
+
+        <div class="col-4">
+          <div class="p-2 information" style="border: solid">
+            <h4 style="text-align: center">Thông tin hợp đồng</h4>
+            <!--            <table>-->
+            <!--              <tr>-->
+            <!--                <td>Mã khách hàng:</td>-->
+            <!--                <td>{{contractDetail.contract.car.customer.id}}</td>-->
+            <!--              </tr>-->
+            <!--              <tr>-->
+            <!--                <td>Họ tên:</td>-->
+            <!--                <td>{{contractDetail.contract.car.customer.name}}</td>-->
+            <!--              </tr>-->
+            <!--              <tr>-->
+            <!--                <td>Địa chỉ:</td>-->
+            <!--                <td>{{contractDetail.contract.car.customer.address}}</td>-->
+            <!--              </tr>-->
+            <!--              <tr>-->
+            <!--                <td>Số điện thoại:</td>-->
+            <!--                <td>{{contractDetail.contract.car.customer.phone}}</td>-->
+            <!--              </tr>-->
+            <!--              <tr>-->
+            <!--                <td>Email:</td>-->
+            <!--                <td>{{contractDetail.contract.car.customer.email}}</td>-->
+            <!--              </tr>-->
+            <!--              <tr>-->
+            <!--                <td>Biển số</td>-->
+            <!--                <td>{{contractDetail.contract.car.numberPlate}}</td>-->
+            <!--              </tr>-->
+            <!--              <tr>-->
+            <!--                <td>Số khung:</td>-->
+            <!--                <td>{{contractDetail.contract.car.carIdNumber}}</td>-->
+            <!--              </tr>-->
+            <!--              <tr>-->
+            <!--                <td>Ngày làm hợp đồng:</td>-->
+            <!--                <td>{{contractDetail.contract.startDate}}</td>-->
+            <!--              </tr>-->
+            <!--            </table>-->
+            <div class="row">
+              <label class="col-6 col-form-label">Mã khách hàng:</label>
+              <div class="col-6">
+                <p>{{contractDetail.contract.car.customer.id}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-6 col-form-label">Họ tên:</label>
+              <div class="col-6">
+                <p>{{contractDetail.contract.car.customer.name}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-6 col-form-label">Địa chỉ:</label>
+              <div class="col-6">
+                <p>{{contractDetail.contract.car.customer.address}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-6 col-form-label">Số điện thoại:</label>
+              <div class="col-6">
+                <p>{{contractDetail.contract.car.customer.phone}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-6 col-form-label">Email:</label>
+              <div class="col-6">
+                <p>{{contractDetail.contract.car.customer.email}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-6 col-form-label">Biển số:</label>
+              <div class="col-6">
+                <p>{{contractDetail.contract.car.numberPlate}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-6 col-form-label">Số khung:</label>
+              <div class="col-6">
+                <p>{{contractDetail.contract.car.carIdNumber}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-6 col-form-label">Ngày làm hợp đồng:</label>
+              <div class="col-6">
+                <p>{{contractDetail.contract.startDate}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center pb-5">
+        <button type="button" class="btn btn-danger mr-3" [routerLink]="['/list-contract']">Hủy</button>
+        <button [disabled]="formCreateAccident.invalid" type="button" class="btn btn-warning"
+                (click)="addListAccident()">Gửi
+        </button>
+      </div>
+    </div>
+
+  </section>
+</div>
+<!-- ======= Footer ======= -->
+<app-footer></app-footer>
+

@@ -1,0 +1,15 @@
+<h5>Xác nhận tạm dừng sử dụng sản phẩm này?</h5>
+<hr>
+<p class="my-3">Bạn chắc chắn muốn ẩn <span style="color: red">{{productName}}</span> không?</p>
+<p class="my-3">(Sản phẩm sẽ được đưa vào danh sách dừng sử dụng)</p>
+<p *ngIf="check" class="text-danger">{{messageErrorId}}</p>
+<div class="row d-flex justify-content-end">
+  <button mat-dialog-close class="btn btn-success mr-2" style="width: 100px">Hủy bỏ</button>
+  <button
+          (click)="changeStatusProduct()"
+          class="btn btn-warning"
+          style="width: 100px">Ẩn</button>
+</div>
+
+
+

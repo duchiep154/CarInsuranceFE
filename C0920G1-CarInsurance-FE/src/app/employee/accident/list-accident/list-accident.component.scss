@@ -1,0 +1,23 @@
+.menu{
+  width: 100%;
+  height: 60px;
+  background: #2196f3;
+}
+.menu-left-admin{
+  border-right: solid #2196f3 1px;
+  height: 700px;
+}
+.menu-left-admin ul li{
+  list-style: none;
+  transition: 0.5s;
+  border-bottom: white solid 2px;
+}
+.menu-left-admin .menu-var:hover{
+  border-bottom: #2196f3 solid 2px;
+  transition: 0.5s;
+}
+.footer{
+  /*position: fixed;*/
+  /*bottom: 0;*/
+  background: #2196f3;
+}

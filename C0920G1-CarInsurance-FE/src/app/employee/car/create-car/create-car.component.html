@@ -1,0 +1,92 @@
+<div class="content row">
+  <div class="col-1">
+  </div>
+  <div class="col-10 float-right mt-3">
+    <form [formGroup]="formAddNewCar" (ngSubmit)="addNewCar(formAddNewCar.value)">
+      <fieldset>
+        <legend>Thêm mới Xe</legend>
+        <div class="item">
+          <label class="col-2 float-left " for="numberPlate">
+            Biển số (<span>*</span>):
+          </label>
+          <input id="numberPlate" class="col-6 form-control float-left" type="text" formControlName="numberPlate">
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p *ngIf="formAddNewCar.get('numberPlate').hasError('required') && formAddNewCar.get('numberPlate').touched"
+             class="text-danger">Vui lòng nhập biển số xe</p>
+          <p *ngIf="formAddNewCar.get('numberPlate').hasError('pattern')&& formAddNewCar.get('numberPlate').touched"
+             class="text-danger">Biển số xe phải theo định dạng 43R3-0046</p>
+        </div><br>
+        <div class="item">
+          <label class="col-2 float-left" for="carIdNumber">
+            Sô khung(<span>*</span>):
+          </label>
+          <input id="carIdNumber" type="text" class="col-6 form-control float-left" formControlName="carIdNumber">
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p
+            *ngIf="formAddNewCar.get('carIdNumber').hasError('required') && formAddNewCar.get('carIdNumber').touched"
+            class="text-danger">Vui lòng nhập số khung</p>
+          <p *ngIf="formAddNewCar.get('carIdNumber').hasError('pattern')&& formAddNewCar.get('carIdNumber').touched"
+             class="text-danger">Số khung phải từ 9 - 12 ký tự</p>
+        </div>
+        <div class="item">
+          <label class="col-2 float-left" for="manufacturer" style="clear: both">
+            Hãng Sản Xuất (<span>*</span>):
+          </label>
+          <input class="col-6 form-control float-left" id="manufacturer" type="text"
+                 formControlName="manufacturer">
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p *ngIf="formAddNewCar.get('manufacturer').hasError('required') && formAddNewCar.get('manufacturer').touched"
+             class="text-danger">Vui lòng hãng xe của bạn</p>
+          <p *ngIf="formAddNewCar.get('manufacturer').hasError('pattern')&& formAddNewCar.get('manufacturer').touched"
+             class="text-danger">Tên nhà sản xuất phải in hoa</p>
+        </div>
+        <div class="item">
+          <label class="col-2 float-left" for="yearManufacturing" style="clear: both">
+            Năm Sản Xuất (<span>*</span>):
+          </label>
+          <input class="col-6 form-control float-left" id="yearManufacturing" type="text"
+                 formControlName="yearManufacturing">
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p
+            *ngIf="formAddNewCar.get('yearManufacturing').hasError('required') && formAddNewCar.get('yearManufacturing').touched"
+            class="text-danger">Vui lòng nhập Năm sản xuất</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left">
+            Khách hàng(<span class="text-danger">*</span>):
+          </label>
+          <select class="col-6 form-control" formControlName="customer">
+            <option [selected]="customer.name"
+                    *ngFor="let customer of customers"
+                    [ngValue]="customer"> {{customer.name}} </option>
+          </select>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p
+            *ngIf="formAddNewCar.get('customer').hasError('required') && formAddNewCar.get('customer').touched"
+            class="text-danger">Vui lòng chọn khách hàng</p>
+        </div>
+      </fieldset>
+      <div class="btn-block">
+        <button type="submit" class="btn btn-warning" [disabled]="formAddNewCar.invalid">Lưu</button>
+        <button type="button" [routerLink]="['/employee/cars-list']" class="btn btn-danger ml-3">Hủy</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-1">
+  </div>
+</div>

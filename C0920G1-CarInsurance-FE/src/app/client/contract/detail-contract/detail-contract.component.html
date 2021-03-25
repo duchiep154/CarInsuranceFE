@@ -1,0 +1,38 @@
+<!--Khanh-->
+<h1>Thông tin hợp đồng</h1>
+<table class="table table-striped table-hover">
+  <tr>
+    <td>Mã hợp đồng</td>
+    <td>{{data.data1.id}}</td>
+  </tr>
+  <tr>
+    <td>Tên khách hàng</td>
+    <td>{{data.data1.name}}</td>
+  </tr>
+  <tr>
+    <td>Ngày bắt đầu</td>
+    <td>{{data.data1.startDate | date:"dd-MM-yyyy"}} </td>
+  </tr>
+  <tr>
+    <td>Ngày kết thúc</td>
+    <td>{{data.data1.endDate}} </td>
+  </tr>
+  <tr>
+    <td>Loại sản phẩm</td>
+    <td>{{data.data1.productName}} </td>
+  </tr>
+  <tr>
+    <td>Biển số xe</td>
+    <td>{{data.data1.numberPlate}} </td>
+  </tr>
+  <tr>
+    <td>Tổng tiền (VNĐ)</td>
+    <td>{{data.data1.totalMoney | number}}</td>
+  </tr>
+</table>
+<div style="text-align: center">
+  <button (click)="close()" class="btn btn-warning pl-2">Hủy</button>
+  <button class="btn btn-danger ml-2" [routerLink]="['/contractDetail/' + data.data1.id]" (click)="close()">Phản hồi</button>
+</div>
+<!--Khanh-->
+

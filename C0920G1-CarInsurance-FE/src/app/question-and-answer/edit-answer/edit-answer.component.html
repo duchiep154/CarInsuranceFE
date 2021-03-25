@@ -1,0 +1,24 @@
+<div style="margin-top: 10px">
+  <h2 class="text-center">Chỉnh sửa câu trả lời</h2>
+</div>
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <div class="widget-area no-padding blank">
+        <div class="status-upload">
+          <form style="width: 100%" [formGroup]="formEdit">
+            <angular-editor placeholder="Nhập nội dung" style="width: 100%; height: 130px"
+                      formControlName="contentAnswer"></angular-editor>
+            <div *ngIf="formEdit.controls.contentAnswer.errors && formEdit.controls.contentAnswer.touched"
+                 class="text-danger">Câu trả lời không được để trống</div>
+            <button (click)="editAnswer()" class="float-right btn btn-success"
+                    style="position: static; right: 10px; margin-top: 10px"> Gửi <i class="fa fa-share"></i></button>
+            <button (click)="onClose()" class="float-right btn btn-secondary"
+                    style="position: static; right: 10px; margin-right: 10px; margin-top: 10px"> Hủy</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

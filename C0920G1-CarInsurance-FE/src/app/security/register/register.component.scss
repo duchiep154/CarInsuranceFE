@@ -1,0 +1,79 @@
+
+div {
+  display: block;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #333;
+  background-color: #fff;
+  width: 35%;
+}
+
+.form-control-login {
+  float: right;
+}
+
+.modal-content, .mylogin-bv {
+  border-color: #000000;
+  border-radius: 6px;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: grey 0px 5px 5px 0px;
+  color: #333333;
+  gap: normal;
+  line-height: 20px;
+  padding: 30px;
+}
+
+.modal-header {
+  border-color: #333333;
+  border-width: 0px 0px 1px;
+  color: #333333;
+  font-size: 14px;
+  gap: normal;
+  line-height: 20px;
+  padding: 15px;
+}
+
+.form-inline label {
+  justify-content: left;
+}
+
+.regis {
+  border-color: #1964af;
+  color: #1964af;
+  display: inline;
+  font-size: 19px;
+  gap: normal;
+  line-height: 27.1429px;
+  font-weight: bold;
+}
+
+.clearfix {
+  border-color: #333333;
+  color: #333333;
+  font-size: 13px;
+  gap: normal;
+  line-height: 18.5714px;
+}
+
+.starts {
+  color: red;
+}
+
+.check_bv {
+  text-align: center;
+}
+.btn-dark{
+  background-color: #2196f3;
+}
+.form-control{
+  width: 65% !important;
+}
+.notify{
+  background: #ddeeee;
+  color: #007bff;
+}

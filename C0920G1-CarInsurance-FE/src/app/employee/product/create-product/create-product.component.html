@@ -1,0 +1,122 @@
+<div class="col-10">
+  <form [formGroup]="formCreateProduct" class="mt-4 col 4" style="left: 20%">
+    <div class="w-100">
+      <label class="w-25">
+      </label>
+    </div>
+    <div class="w-75 d-flex justify-content-center">
+      <h3>Thêm Mới Bảo Hiểm</h3>
+    </div>
+    <div class="form-group row col-7 mt-3">
+      <label for="insurance-name"
+             class="w-25 col-form-label">
+        <strong>Tên bảo hiểm </strong><span style="color: red">(*)</span> :
+      </label>
+      <div class="w-75">
+        <input formControlName="name"
+               type="text"
+               class="form-control"
+               id="insurance-name"
+               placeholder="Nhập tên bảo hiểm"/>
+        <p *ngIf="formCreateProduct.controls.name.errors?.required && formCreateProduct.controls.name.touched"
+           class="text-danger">
+          Vui lòng nhập tên bảo hiểm!
+        </p>
+        <p *ngIf="formCreateProduct.controls.name.errors?.pattern"
+           class="text-danger">
+          Tên bảo hiểm sai định dạng!
+        </p>
+      </div>
+    </div>
+    <div class="form-group row col-7">
+
+      <label for="insurance-type" class="w-25 col-form-label">
+        <strong>Loại bảo hiểm </strong><span style="color: red">(*)</span> :
+      </label>
+      <div class="w-75">
+        <select formControlName="productType"
+                class="custom-select my-1 mr-sm-2"
+                id="insurance-type">
+          <option *ngFor="let productType of productTypes"
+                  [ngValue]="productType">
+            {{ productType.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row col-7">
+      <label for="person-number"
+             class="w-25 col-form-label">
+        <strong>Số người </strong> <span style="color: red">(*)</span> :
+      </label>
+      <div class="w-75">
+        <input formControlName="personNumber"
+               type="text"
+               class="form-control"
+               id="person-number"
+               placeholder="Nhập số người"/>
+        <p
+          *ngIf="formCreateProduct.controls.personNumber.errors?.required && formCreateProduct.controls.personNumber.touched"
+          class="text-danger">
+          Vui lòng nhập số người!
+        </p>
+        <p *ngIf="formCreateProduct.controls.personNumber.errors?.pattern"
+           class="text-danger">
+          Nhập sai định dạng, số người chỉ gồm những con số và không quá 60 người!
+        </p>
+      </div>
+    </div>
+    <div class="form-group row col-7">
+      <label for="car-type" class="w-25 col-form-label">
+        <strong>Loại xe</strong> <span style="color: red">(*)</span> :</label>
+      <div class="w-75">
+        <select formControlName="carType"
+                class="custom-select my-1 mr-sm-2"
+                id="car-type">
+          <option *ngFor="let carType of carTypes"
+                  [ngValue]="carType">
+            {{carType.carSeat}} & {{carType.carAge}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row col-7">
+      <label for="product-price" class="w-25 col-form-label">
+        <strong>Đơn giá </strong><span style="color: red">(*)</span> :
+      </label>
+      <div class="w-75">
+        <input formControlName="productPrice"
+               type="text"
+               class="form-control"
+               id="product-price"
+               placeholder="Nhập đơn giá"/>
+        <p
+          *ngIf="formCreateProduct.controls.productPrice.errors?.required && formCreateProduct.controls.productPrice.touched"
+          class="text-danger">
+          Vui lòng nhập đơn giá!
+        </p>
+        <p *ngIf="formCreateProduct.controls.productPrice.errors?.pattern"
+           class="text-danger">
+          Sai định dạng, đơn giá chỉ gồm những con số!
+        </p>
+      </div>
+    </div>
+    <div class="text-center">
+      <label class="w-25"></label>
+      <div class="w-75 d-flex justify-content-center">
+        <button (click)="returnListProduct()"
+                class="btn btn-dark mr-3"
+                style="width: 100px">
+          Quay lại
+        </button>
+        <button (click)="addNewProduct()"
+                class="btn btn-success"
+                style="width: 100px">
+          Thêm mới
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- ------------------------------------------- -->

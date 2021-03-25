@@ -1,0 +1,16 @@
+.div-message {
+  float: right;
+  margin-left: 15px;
+}
+
+.form-message {
+  width: 250px;
+  height: 120px;
+}
+
+.color-message {
+  color: green;
+  font-size: 14px;
+}
+
+/*# sourceMappingURL=message.component.css.map */

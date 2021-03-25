@@ -1,0 +1,58 @@
+<app-header></app-header>
+<div class="container" style="margin-top: 115px; margin-bottom: 10px">
+  <h2 class="text-center">Hỏi đáp</h2>
+  <div>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+  <div class="card col-md-12" *ngFor="let list of questionList| paginate: { itemsPerPage: 2, currentPage: p }">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-1 p-0">
+          <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+          <p class="text-secondary text-center" style="font-size: small; margin-bottom: 0">{{list.dateQuestion | date: 'h:mm a'}}</p>
+          <p class="text-secondary text-center" style="font-size: small; margin-bottom: 5px">{{list.dateQuestion | date: 'dd/MM/yyyy'}}</p>
+        </div>
+        <div class="col-md-11">
+          <p>
+            <a class="float-left"
+               href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>{{list.users.username}}</strong></a>
+            <!--            <a href="#" class="float-right" style="text-decoration: none; color: #dc3545"> Xóa </a>-->
+<!--            <a href="#" class="float-right " style="text-decoration: none; color: #FFD700">Chỉnh sửa </a>-->
+          </p>
+          <div class="clearfix"></div>
+          <p  [innerHTML]="[list.contentQuestion]">{{list.contentQuestion}}</p>
+          <p>
+            <a role="button" (click)="openCreateDialog(list.id)" class="btn btn-outline-secondary float-right ml-2"
+               style="text-decoration: none;"><i class="fa fa-reply"></i> Trả lời</a>
+            <!--                        <a href="" style="color: #dc3545; text-decoration: none;"> <i class="fa fa-heart"></i> <span>1</span> </a>-->
+          </p>
+        </div>
+      </div>
+      <div class="ml-5 card card-inner" *ngFor="let answer of list.answerSet">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-1 p-0">
+              <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+              <p class="text-secondary text-center" style="font-size: small; margin-bottom: 0">{{answer.dateAnswer | date: 'h:mm a'}}</p>
+              <p class="text-secondary text-center" style="font-size: small; margin-bottom: 0">{{answer.dateAnswer | date: 'dd/MM/yyyy'}}</p>
+            </div>
+            <div class="col-md-11">
+              <a
+                href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>{{answer.users.username}}</strong></a>
+              <!--              <a href="#" class="float-right" style="text-decoration: none; color: #dc3545"> Xóa </a>-->
+              <a role="button" (click)="openEditDialog(answer.id)" *ngIf="toggleShowAnswer(answer.users.id)" class="float-right "
+                 style="text-decoration: none; color: #FFD700">Chỉnh sửa </a>
+              <p (mouseover)="checkSeen(answer.users.id)" [innerHTML]="[answer.contentAnswer]">{{answer.contentAnswer}}</p>
+              <!--              <p>-->
+              <!--                <a href="#" class="float-right ml-2" style="text-decoration: none;"><i class="fa fa-reply"></i> Trả lời</a>-->
+              <!--                &lt;!&ndash;                                <a href="#" style="color: #dc3545"> <i class="fa fa-heart"></i> <span>1</span> </a>&ndash;&gt;-->
+              <!--              </p>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<app-footer></app-footer>

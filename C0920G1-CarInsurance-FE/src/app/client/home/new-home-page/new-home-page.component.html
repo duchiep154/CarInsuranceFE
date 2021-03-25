@@ -1,0 +1,327 @@
+<header id="header" class="fixed-top header-inner-pages">
+  <div class="container-fluid d-flex align-items-center justify-content-between" style="height: 80px">
+    <h1 class="logo"><a href="#">C0920G1
+      <img src="assets/img/logoC09.png" style="margin-bottom: 10px;height: 60px">
+    </a></h1>
+    <nav class="nav-menu d-none d-lg-block">
+      <ul>
+        <li><a style="cursor: pointer" (click)="openDiablogCreate()">Hợp đồng</a></li>
+        <li class="drop-down"><a href="#">Các loại bảo hiểm <i class="fas fa-angle-down"></i></a>
+          <ul>
+            <li><a href="#BH-1">Bảo hiểm bắt buộc TNDS của chủ xe cơ giới</a></li>
+            <li><a href="#BH-2">Bảo hiểm thiệt hại vật chất xe cơ giới</a></li>
+            <li><a href="#BH-3">Bảo hiểm TNDS của chủ xe đối với hàng hóa</a></li>
+            <li><a href="#BH-4">Bảo hiểm người ngồi trên xe và tai nạn lái phụ xe</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Khuyến mãi</a></li>
+        <li class="drop-down"><a style="cursor: pointer">Thông tin bảo hiểm <i class="fas fa-angle-down"></i></a>
+          <ul>
+            <li><a href="./list-contract" [routerLink]="['list-contract']">Hợp đồng chi tiết</a></li>
+            <li><a href="./accident-client">Yêu cầu bồi thường</a></li>
+          </ul>
+        </li>
+        <li><a href="./questions">Hỗ trợ</a></li>
+      </ul>
+    </nav>
+    <div class="scrollto">
+      <nav class="navbar navbar-expand navbar-dark" style="font-weight: bold">
+        <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+          <li class="nav-item">
+            <a class="nav-link" (click)="openDialogRegister()" style="cursor: pointer">Đăng ký</a>
+          </li>
+          <li class="nav-item">
+            <a (click)="openDialogLogin()" class="nav-link" style="cursor: pointer">Đăng nhập</a>
+          </li>
+        </ul>
+        <div class="btn-group login" *ngIf="isLoggedIn" >
+          <a type="button" class="dropdown-toggle text-light" data-toggle="dropdown" aria-haspopup="true"
+             aria-expanded="false">
+            {{ username }}
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item text-dark" *ngIf="position" routerLink="/client-edit-customer">Thông tin bản thân</a>
+            <a class="dropdown-item text-dark" *ngIf="!position" routerLink="/employee/detail/ + {{id}}">Thông tin bản thân</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-dark" (click)="logout()">Đăng xuất</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header><!-- End Header -->
+
+<main id="main" style="padding-top: 23px">
+
+  <section class="breadcrumbs">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img class="d-block w-100" src="assets/img/anh7.jpg" alt="First slide" height="600px">
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="assets/img/anh6.png" alt="Second slide" height="600px">
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="assets/img/thinh.jpg" alt="Third slide" height="600px">
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+  <section class="inner-page">
+    <div class="container">
+
+      <div class="col-xl-6 " style="float:left">
+        <img src="assets/img/baohiem.png" width="650px" height="350px">
+      </div>
+
+      <div class="col-xl-6" style="float:left">
+        <div class="title" style="font-size: 120%">
+          BẢO HIỂM CHO NGƯỜI VÀ XE TÍNH MẠNG LÀ TRÊN HẾT <br> 1 HỢP ĐỒNG 2 GIÁ TRỊ - BẢO HIỂM CHO XE VÀ NGƯỜI NGỒI TRÊN
+          XE:
+        </div>
+        <ul>
+          <li style="background:none;padding-left:0px;text-align: justify;"><b>Được bảo hiểm toàn bộ vật chất xe
+            ô tô do mọi rủi ro: đâm va, lật đổ, cháy nổ, thiên tai, bão lụt, vật thể bên ngoài tác động lên
+            xe cơ giới, tai nạn rủi ro bất ngờ khác, mất cắp toàn bộ xe …</b>
+          </li>
+          <li>Dịch vụ cứu hộ miễn phí trong phạm vi 70 km từ các trung tâm cứu hộ của Codegym tại các tỉnh,
+            thành phố lớn
+          </li>
+          <li>Dịch vụ hướng dẫn giải quyết tai nạn & khiếu nại bồi thường 24/7 qua Đường dây nóng <label
+            style="color: red">1900 55 88 99/ (84 4) 3573 0505</label></li>
+          <li>Dịch vụ bồi thường nhanh, gọn, chính xác</li>
+          <li>Thông báo tái tục hợp đồng bảo hiểm miễn phí</li>
+          <li>Khách hàng có thể lựa chọn bảo hiểm theo gói hoặc mua rời</li>
+          <li style="background:none;padding-left:0px;">Các điểm bán bảo hiểm ô tô của Codegym có mặt tại tất
+            cả các tỉnh thành trên toàn quốc.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="inner-page" id="BH-1">
+    <div class="container">
+
+      <div class="col-xl-6" style="float:left">
+        <img
+          src="https://toplist.vn/images/800px/hang-bao-hiem-xe-o-to-uy-tin-duoc-lai-xe-lua-chon-nhieu-nhat-hien-nay-284618.jpg"
+          width="510px" height="350px">
+      </div>
+
+      <div class="col-xl-6" style="float:left">
+        <div class="title" style="font-size: 120%">
+          BẢO HIỂM BẮT BUỘC CHO XE CƠ GIỚI
+        </div>
+        <ul>
+          <li style="background:none;padding-left:0px;text-align: justify;"><b>Bảo Hiểm sẽ thay chủ xe bồi thường những
+            thiệt hại về thân thể, tính mạng và tài sản đối với bên thứ ba do xe ô tô gây ra theo mức tối đa là 100
+            triệu đồng trên một vụ
+            hoặc trên 1 người một vụ. Giúp bạn giảm bớt phần trách nhiệm phải bồi thường cho người bị nạn.</b>
+          </li>
+          <li>Dịch vụ hướng dẫn giải quyết tai nạn & khiếu nại bồi thường 24/7 qua Đường dây nóng <label
+            style="color: red">1900 55 88 99/ (84 4) 3573 0505</label></li>
+          <li>Dịch vụ bồi thường nhanh, gọn, chính xác</li>
+          <li>Thông báo tái tục hợp đồng bảo hiểm miễn phí</li>
+          <li>Khách hàng có thể lựa chọn bảo hiểm theo gói hoặc mua rời</li>
+          <li style="background:none;padding-left:0px;">Các điểm bán bảo hiểm ô tô của Codegym có mặt tại tất
+            cả các tỉnh thành trên toàn quốc.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="inner-page" id="BH-2">
+    <div class="container">
+
+      <div class="col-xl-6" style="float:left">
+        <img
+          src="https://photo-baomoi.zadn.vn/w700_r1/2018_01_16_326_24647361/c86d00eee6a80ff656b9.jpg"
+          width="510px" height="350px">
+      </div>
+
+      <div class="col-xl-6" style="float:left">
+        <div class="title" style="font-size: 120%">
+          BẢO HIỂM THÂN VỎ XE Ô TÔ
+        </div>
+        <ul>
+          <li style="background:none;padding-left:0px;text-align: justify;"><b>Bảo hiểm thân vỏ tự nguyện hỗ trợ khách
+            hàng
+            khắc phục hậu quả thiệt hại về xe trong trường hợp chủ xe tự gây ra các tổn thất không mong muốn mà không có
+            tác động của bên thứ ba.</b>
+          </li>
+          <li>Dịch vụ cứu hộ miễn phí trong phạm vi 70 km từ các trung tâm cứu hộ của Codegym tại các tỉnh,
+            thành phố lớn
+          </li>
+          <li>Dịch vụ hướng dẫn giải quyết tai nạn & khiếu nại bồi thường 24/7 qua Đường dây nóng <label
+            style="color: red">1900 55 88 99/ (84 4) 3573 0505</label></li>
+          <li>Dịch vụ bồi thường nhanh, gọn, chính xác</li>
+          <li>Thông báo tái tục hợp đồng bảo hiểm miễn phí</li>
+          <li>Khách hàng có thể lựa chọn bảo hiểm theo gói hoặc mua rời</li>
+          <li style="background:none;padding-left:0px;">Các điểm bán bảo hiểm ô tô của Codegym có mặt tại tất
+            cả các tỉnh thành trên toàn quốc.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="inner-page" id="BH-3">
+    <div class="container">
+
+      <div class="col-xl-6" style="float:left">
+        <img
+          src="https://dhdlogistics.com/wp-content/uploads/2020/07/van-tai-duong-bo-noi-dia.jpg"
+          width="510px" height="350px">
+      </div>
+
+      <div class="col-xl-6" style="float:left">
+        <div class="title" style="font-size: 120%">
+          BẢO HIỂM HÀNG HÓA TRÊN XE
+        </div>
+        <ul>
+          <li style="background:none;padding-left:0px;text-align: justify;"><b>Bảo hiểm cho phần trách nhiệm dân sự của
+            chủ xe cơ giới đối với tổn thất, mất mát hàng hóa được vận chuyển trên xe theo hợp đồng vận chuyển giữa chủ
+            xe và chủ hàng. Thanh toán cho chủ xe các chi phí cần thiết và hợp lý nhằm: Ngăn ngừa, giảm nhẹ tổn thất cho
+            hàng hóa; Bảo quản, xếp dỡ, lưu kho, lưu bãi</b>
+          </li>
+          <li>Dịch vụ cứu hộ miễn phí trong phạm vi 70 km từ các trung tâm cứu hộ của Codegym tại các tỉnh,
+            thành phố lớn
+          </li>
+          <li>Dịch vụ hướng dẫn giải quyết tai nạn & khiếu nại bồi thường 24/7 qua Đường dây nóng <label
+            style="color: red">1900 55 88 99/ (84 4) 3573 0505</label></li>
+          <li>Dịch vụ bồi thường nhanh, gọn, chính xác</li>
+          <li>Thông báo tái tục hợp đồng bảo hiểm miễn phí</li>
+          <li>Khách hàng có thể lựa chọn bảo hiểm theo gói hoặc mua rời</li>
+          <li style="background:none;padding-left:0px;">Các điểm bán bảo hiểm ô tô của Codegym có mặt tại tất
+            cả các tỉnh thành trên toàn quốc.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section class="inner-page" id="BH-4">
+    <div class="container">
+
+      <div class="col-xl-6" style="float:left">
+        <img
+          src="https://ibaoviet.vn/wp-content/uploads/2017/11/bao-hiem-tai-nan-nguoi-ngoi-tren-xe-la-gi.jpg"
+          width="510px" height="350px"/>
+      </div>
+
+      <div class="col-xl-6" style="float:left">
+        <div class="title" style="font-size: 120%">
+          BẢO HIỂM CHO NGƯỜI LÁI VÀ NGƯỜI NGỒI TRÊN XE Ô TÔ <br>
+        </div>
+        <ul>
+          <li style="background:none;padding-left:0px;text-align: justify;"><b>Người được BH được bồi thường trong
+            trường hợp tử vong hay thương tật thân thể khi đang ở trên xe hoặc đang lên, xuống xe trong quá trình xe
+            đang tham gia giao thông.</b>
+          </li>
+          <li>Dịch vụ hướng dẫn giải quyết tai nạn & khiếu nại bồi thường 24/7 qua Đường dây nóng <label
+            style="color: red">1900 55 88 99/ (84 4) 3573 0505</label></li>
+          <li>Dịch vụ bồi thường nhanh, gọn, chính xác</li>
+          <li>Thông báo tái tục hợp đồng bảo hiểm miễn phí</li>
+          <li>Khách hàng có thể lựa chọn bảo hiểm theo gói hoặc mua rời</li>
+          <li style="background:none;padding-left:0px;">Các điểm bán bảo hiểm ô tô của Codegym có mặt tại tất
+            cả các tỉnh thành trên toàn quốc.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+  <div class="footer-top">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-3 col-md-6">
+          <div class="footer-info">
+            <h3>C0920G1</h3>
+            <p>
+              Hải Châu Đà Nẵng<br>
+              NY 535022, VN<br><br>
+              <strong>Phone:</strong> +032 696 5824<br>
+              <strong>Email:</strong> codeGym@gmai.com.vn<br>
+            </p>
+            <div class="link-menu pt-2">
+              <a href="#">
+                <img src="assets/img/fb.png" style="margin-right: 5px"></a>
+              <a href="#">
+                <img src="assets/img/tw.png" style="margin-right: 5px"></a>
+              <a href="#">
+                <img src="assets/img/in.png" style="margin-right: 5px"></a>
+              <a href="#">
+                <img style="max-height:33px;max-width:33px;"
+                     src="https://baovietonline.cdn.vccloud.vn/Images/zalo.png"></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-6 footer-links">
+          <h4>Trang chủ</h4>
+          <ul>
+            <li><i class="bx bx-chevron-right"></i> <a href="#">Thông tin</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#">Giới thiệu</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#">Hỗ trợ khách hàng</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#">Khuyến mãi</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#">Tư vấn</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links">
+          <h4>Dịch vụ</h4>
+          <ul>
+            <li><i class="bx bx-chevron-right"></i> <a href="#">Bảo hiểm sức khỏe</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#">Bảo hiểm nhân thọ</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#">Bảo hiểm du lịch</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#">Bảo hiểm xe cơ giới</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#">Bảo hiểm tai nạn</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-md-6 footer-newsletter">
+          <h4>Liên hệ với chúng tôi</h4>
+          <p>Các bạn có thể liên hệ qua số điện thoại hoặc để lại tin nhắn qua mail chúng tôi sẽ phản hồi sớm nhất.</p>
+          <form action="" method="post">
+            <input type="email" name="email" placeholder="email"><input type="submit" value="Đăng Ký">
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="copyright" style="text-align: center">
+      <div class="company">
+        <span>Trụ sở chính: 295 Nguyễn Tất Thành, Phường Thanh Bình, Quận Hải Châu, Đà Nẵng</span>
+      </div>
+      <div class="address-phone">
+        Tel: <span class="tel">(+84) 1234 5678</span> - Fax: <span class="tel">(+84) 1234 1234</span> -
+        Email: bvvn@codegym.com.vn
+      </div>
+      <div class="dmca">
+        <span>© 2021 CodeGym Insurance, All Rights Reserved</span>
+      </div>
+    </div>
+
+  </div>
+</footer><!-- End Footer -->
+

@@ -1,0 +1,285 @@
+
+  <div class="col-10 float-right mt-3">
+    <h3 align="center" class="mt-5">
+      Màn Hình Chỉnh Sửa Nhân Viên
+    </h3>
+    <form focusInvalidInput [formGroup]="formUpdateEmployee" (ngSubmit)="update()" class="form-group-margin">
+      <div class="form-group">
+        <div class="row">
+          <label class="col-3" style="text-align: left" for="name">
+            Họ Tên Nhân Viên(<span class="text-danger">*</span>):
+          </label>
+          <input oninput="this.value = this.value.toUpperCase()" class="col-6 form-control" id="name"
+                 formControlName="name" type="text">
+        </div>
+      </div>
+      <!--  In Lỗi  -->
+      <div class="form-group">
+        <div class="row">
+          <label class="col-3" style="text-align: left">
+          </label>
+          <p class="text-danger"
+             *ngIf="formUpdateEmployee.get('name').hasError('required') ||
+           formUpdateEmployee.get('name').hasError('pattern')">
+            <b>*Tên không đúng định dạng</b></p>
+        </div>
+      </div>
+      <!--    -->
+      <div class="form-group">
+        <div class="row-cols-2">
+          <label class="col-3" for="dayOfBirth" style="text-align: left">
+            Ngày Sinh (<span class="text-danger">*</span>):
+          </label>
+
+          <mat-form-field>
+            <input [max]="maxDate" readonly [min]="minDate" class="col-6 form-control" id="dayOfBirth"
+                   formControlName="dateOfBirth" matInput [matDatepicker]="myDatepicker">
+            <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #myDatepicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <!--    In lỗi-->
+      <div class="form-group">
+        <div class="row">
+          <label class="col-3" style="text-align: left">
+          </label>
+          <p class="text-danger" *ngIf="formUpdateEmployee.hasError('forbiddenDateOfBirth','dateOfBirth')
+      || formUpdateEmployee.get('dateOfBirth').hasError('required')">
+            <b>*Ngày Sinh Phải Trên 18 Tuổi.</b></p>
+        </div>
+      </div>
+      <!--    -->
+      <div class="form-group" style="clear: both">
+        <div class="row">
+          <label class="col-3 ">
+            Giới tính (<span class="text-danger">*</span>):
+          </label>
+          <input ng-control="gender" value="1" type="radio" formControlName="gender"/>&nbsp;Nam &nbsp;
+          <input ng-control="gender" value="0" type="radio" formControlName="gender"/>&nbsp;Nữ &nbsp;
+          <input ng-control="gender" value="2" type="radio" formControlName="gender"/>&nbsp;Khác &nbsp;
+        </div>
+      </div>
+      <!--    -->
+      <div class="form-group">
+        <div class="row">
+          <label class="col-3" style="text-align: left">
+          </label>
+          <p class="text-danger">
+            <b></b></p>
+        </div>
+      </div>
+      <!--    -->
+      <div class="form-group">
+        <div class="row">
+          <label class="col-3" for="email" style="text-align: left">
+            Email (<span class="text-danger">*</span>):
+          </label>
+          <input class="col-6 form-control" id="email" formControlName="email" type="text">
+        </div>
+      </div>
+      <!--    In lỗi-->
+      <div class="form-group">
+        <div class="row">
+          <label class="col-3" style="text-align: left">
+          </label>
+          <p class="text-danger"
+             *ngIf="formUpdateEmployee.get('email').hasError('pattern') ||formUpdateEmployee.get('email').hasError('required') ">
+            <b>*Email không đúng định dạng</b></p>
+        </div>
+      </div>
+      <!--    -->
+      <div class="form-group">
+        <div class="row">
+          <label class="col-3" for="phone" style="text-align: left">
+            Số Điện Thoại (<span class="text-danger">*</span>):
+          </label>
+          <input class="col-6 form-control" id="phone" formControlName="phone" type="text">
+        </div>
+      </div>
+      <!--    In lỗi-->
+      <div class="form-group">
+        <div class="row">
+          <label class="col-3" style="text-align: left">
+          </label>
+          <p class="text-danger"
+             *ngIf="formUpdateEmployee.get('phone').hasError('pattern') ||formUpdateEmployee.get('phone').hasError('required') ">
+            <b>*Số điện thoại không đúng định dạng</b></p>
+        </div>
+      </div>
+      <!--    -->
+      <div class="form-group">
+        <div class="row">
+          <label class="col-3" for="position" style="text-align: left">
+            Chức Vụ (<span class="text-danger">*</span>):
+          </label>
+          <select class="col-6 form-control" id="position" formControlName="position">
+            <option [selected]="position.name == formUpdateEmployee.controls.position.value.name"
+                    *ngFor="let position of positionList"
+                    [ngValue]="position"> {{position.name}} </option>
+          </select>
+        </div>
+      </div>
+      <!--    -->
+      <div class="form-group">
+        <div class="row">
+          <label hidden class="col-3" for="users" style="text-align: left">
+            Tài Khoản (<span class="text-danger">*</span>):
+          </label>
+          <select hidden class="col-6 form-control" id="users" formControlName="users">
+            <option *ngFor="let users of usersList"
+                    [selected]="users.username == formUpdateEmployee.controls.users.value.username"
+                    [ngValue]="users"> {{users.username}} </option>
+          </select>
+        </div>
+      </div>
+      <!--    -->
+      <div class="form-group">
+        <div class="row">
+          <label class="col-3" for="city" style="text-align: left">
+            Thành Phố (<span class="text-danger">*</span>):
+          </label>
+          <input class="col-6 form-control" id="city" formControlName="city" type="text">
+        </div>
+      </div>
+      <!--    In lỗi-->
+      <div class="form-group">
+        <div class="row">
+          <label class="col-3" style="text-align: left">
+          </label>
+          <p class="text-danger"
+             *ngIf="formUpdateEmployee.get('city').hasError('pattern') ||formUpdateEmployee.get('city').hasError('required') ">
+            <b>*Tên thành phố không tồn tại.</b></p>
+        </div>
+      </div>
+      <!--    -->
+      <div class="form-group">
+        <div class="row">
+          <label class="col-3" for="address" style="text-align: left">
+            Địa Chỉ (<span class="text-danger">*</span>):
+          </label>
+          <select class="col-6 form-control" id="address" formControlName="address">
+            <option>Thành phố Hà Nội</option>
+            <option>Tỉnh Hà Giang</option>
+            <option>Tỉnh Cao Bằng</option>
+            <option>Tỉnh Bắc Kạn</option>
+            <option>Tỉnh Tuyên Quang</option>
+            <option>Tỉnh Lào Cai</option>
+            <option>Tỉnh Điện Biên</option>
+            <option>Tỉnh Lai Châu</option>
+            <option>Tỉnh Sơn La</option>
+            <option>Tỉnh Yên Bái</option>
+            <option>Tỉnh Hoà Bình</option>
+            <option>Tỉnh Thái Nguyên</option>
+            <option>Tỉnh Lạng Sơn</option>
+            <option>Tỉnh Quảng Ninh</option>
+            <option>Tỉnh Bắc Giang</option>
+            <option>Tỉnh Phú Thọ</option>
+            <option>Tỉnh Vĩnh Phúc</option>
+            <option>Tỉnh Bắc Ninh</option>
+            <option>Tỉnh Hải Dương</option>
+            <option>Thành phố Hải Phòng</option>
+            <option>Tỉnh Hưng Yên</option>
+            <option>Tỉnh Thái Bình</option>
+            <option>Tỉnh Hà Nam</option>
+            <option>Tỉnh Nam Định</option>
+            <option>Tỉnh Ninh Bình</option>
+            <option>Tỉnh Thanh Hóa</option>
+            <option>Tỉnh Nghệ An</option>
+            <option>Tỉnh Hà Tĩnh</option>
+            <option>Tỉnh Quảng Bình</option>
+            <option>Tỉnh Quảng Trị</option>
+            <option>Tỉnh Thừa Thiên Huế</option>
+            <option>Thành phố Đà Nẵng</option>
+            <option>Tỉnh Quảng Nam</option>
+            <option>Tỉnh Quảng Ngãi</option>
+            <option>Tỉnh Bình Định</option>
+            <option>Tỉnh Phú Yên</option>
+            <option>Tỉnh Khánh Hòa</option>
+            <option>Tỉnh Ninh Thuận</option>
+            <option>Tỉnh Bình Thuận</option>
+            <option>Tỉnh Kon Tum</option>
+            <option>Tỉnh Gia Lai</option>
+            <option>Tỉnh Đắk Lắk</option>
+            <option>Tỉnh Đắk Nông</option>
+            <option>Tỉnh Lâm Đồng</option>
+            <option>Tỉnh Bình Phước</option>
+            <option>Tỉnh Tây Ninh</option>
+            <option>Tỉnh Bình Dương</option>
+            <option>Tỉnh Đồng Nai</option>
+            <option>Tỉnh Bà Rịa - Vũng Tàu</option>
+            <option>Thành phố Hồ Chí Minh</option>
+            <option>Tỉnh Long An</option>
+            <option>Tỉnh Tiền Giang</option>
+            <option>Tỉnh Bến Tre</option>
+            <option>Tỉnh Trà Vinh</option>
+            <option>Tỉnh Vĩnh Long</option>
+            <option>Tỉnh Đồng Tháp</option>
+            <option>Tỉnh An Giang</option>
+            <option>Tỉnh Kiên Giang</option>
+            <option>Thành phố Cần Thơ</option>
+            <option>Tỉnh Hậu Giang</option>
+            <option>Tỉnh Sóc Trăng</option>
+            <option>Tỉnh Bạc Liêu</option>
+            <option>Tỉnh Cà Mau</option>
+          </select>
+        </div>
+      </div>
+      <!--    In Lỗi-->
+      <div class="form-group">
+        <div class="row">
+          <label class="col-3" style="text-align: left">
+          </label>
+          <p class="text-danger"
+             *ngIf="formUpdateEmployee.get('address').hasError('pattern') ||formUpdateEmployee.get('address').hasError('required') ">
+            <b>*Tên thành phố không tồn tại.</b></p>
+        </div>
+      </div>
+      <!--    -->
+      <div class="form-group">
+        <div class="row">
+          <label class="col-3" for="cmnd" style="text-align: left">
+            Chứng Minh Nhân Dân (<span class="text-danger">*</span>):
+          </label>
+          <input class="col-6 form-control" id="cmnd" formControlName="idCard" type="text">
+        </div>
+      </div>
+      <!--    In Lỗi-->
+      <div class="form-group">
+        <div class="row">
+          <label class="col-3" style="text-align: left">
+          </label>
+          <p class="text-danger"
+             *ngIf="formUpdateEmployee.get('idCard').hasError('required') ||formUpdateEmployee.get('idCard').hasError('pattern')">
+            <b>*Số chứng minh nhân dân không đúng định dạng.</b></p>
+        </div>
+      </div>
+      <!--    -->
+      <div class="form-group">
+        <div class="row">
+          <label class="col-3" style="text-align: left">
+          </label>
+          <img id="img" style="width: 150px; height: 150px" [src]="imgSrc">
+        </div>
+      </div>
+      <!--    -->
+      <div class="form-group">
+        <div class="row">
+          <label class="col-3" for="imgUrl" style="text-align: left">
+            Update Ảnh Cá Nhân (<span class="text-danger">*</span>):
+          </label>
+          <input class="col-6 form-control" id="imgUrl" type="file" (change)="showPreview($event)">
+        </div>
+      </div>
+
+      <!--    -->
+      <div class="form-group btn-submit col-8">
+        <label>
+          <button type="submit" class="btn btn-danger">Lưu</button>
+        </label>
+        <label class="ml-4">
+          <button type="button" class="btn btn-success " (click)="openDialogEdit()">Trở Lại</button>
+        </label>
+      </div>
+    </form>
+  </div>

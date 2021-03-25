@@ -1,0 +1,32 @@
+<div id="customer" class="container">
+
+
+    <h3 id="information" class="card-title">Đổi mật khẩu</h3>
+    <h5>Mã OTP đã được gởi về email của quý khách. Vui lòng nhập đúng mã OTP để đổi mật khẩu</h5>
+    <h6 style="color: red;">Lưu ý: Mã OTP có hiệu lực trong thời gian 1 phút</h6>
+    <div>
+
+        <hr>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Nhap ma OTP (<span style="color: red">*</span>)</label>
+            <div class="col-sm-8">
+
+                <input type="text" class="form-control" (change)="inputOTP($event.target.value)"
+                    placeholder="Nhập ma OTP" required autofocus>
+                <p style="color: red;">{{notifitionOTP}}</p>
+
+            </div>
+
+        </div>
+        <h3 style="color:yellowgreen;">{{displayMessage}}</h3>
+
+
+        <div class="modal-footer">
+            <button class="btn btn-success" (click)="onSubmit()">Lưu mật khẩu</button>
+            <button mat-dialog-close="false" type="button" [routerLink]="['/home']" class="btn btn-danger"
+            >Đóng</button>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,68 @@
+
+
+#customer {
+    margin-top: 50px;
+}
+
+#tab-avatar {
+    margin: 20px;
+}
+
+#information {
+    color: dodgerblue;
+    font-size: 30px;
+}
+#update{
+    font-size: 20px;
+}
+
+i {
+    color: dodgerblue;
+    font-size: 35px;
+}
+
+img {
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+}
+
+.breadcrumbs {
+    padding: 15px 0 0 0;
+    min-height: 40px;
+    margin-top: 66px;
+  }
+  .breadcrumbs h2 {
+    font-size: 28px;
+    font-weight: 400;
+  }
+  .breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .breadcrumbs ol li + li {
+    padding-left: 10px;
+  }
+  .breadcrumbs ol li + li::before {
+    display: inline-block;
+    padding-right: 10px;
+    color: #263d4d;
+    content: "/";
+  }
+  @media (max-width: 992px) {
+    .breadcrumbs {
+      margin-top: 58px;
+    }
+    .breadcrumbs .d-flex {
+      display: block !important;
+    }
+    .breadcrumbs ol {
+      display: block;
+    }
+    .breadcrumbs ol li {
+      display: inline-block;
+    }
+  }

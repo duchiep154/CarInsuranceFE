@@ -1,0 +1,95 @@
+<div class="col-12 float-right mt-3">
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+      <h3 class="col-6 mt-3 float-left">Danh Sách Hợp Đồng</h3>
+      <div class="col-6 mt-3 float-right input-group">
+        <button type="button" class="btn btn-dark mr-2" [routerLink]="['/employee/contract-create']" data-toggle="tooltip" data-placement="top" title="Thêm mới"><i class="fas fa-plus-square"></i></button>
+        <input id="addLink" type="text" class="form-control float-left" placeholder="Nhập ngày hợp đồng" aria-label="Recipient's username"
+               (keyup.enter)="search(0)"    aria-describedby="basic-addon2" [(ngModel)]="searchInput">
+        <div class="input-group-append float-left">
+          <button id="linkAdd" class="btn btn-outline-primary" type="submit" (click)="search(0)" data-toggle="tooltip" data-placement="top" title="Tìm kiếm"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+      <table class="table table-hover" style="font-size: 12px;">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col" (click)="onSortingChange('startDate')">Ngày bắt đầu <i class="fas fa-sort"></i></th>
+          <th scope="col" (click)="onSortingChange('endDate')">Ngày kết thúc <i class="fas fa-sort"></i></th>
+          <th scope="col">Kỳ hạn</th>
+          <th scope="col" (click)="onSortingChange('statusApproval')">Phê duyệt <i class="fas fa-sort"></i></th>
+          <th scope="col" (click)="onSortingChange('startPay')">Thanh toán <i class="fas fa-sort"></i></th>
+          <th scope="col" >Biển số xe</th>
+          <th scope="col" >Tên NV</th>
+          <th scope="col" >Bảo hiểm</th>
+          <th scope="col" style="width: 12%">Hoạt Động</th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let c of contracts; let i = index">
+        <tr>
+          <th scope="row">{{i+1 + (pageClicked * size)}}</th>
+          <td>{{c.startDate | date:"dd-MM-yyyy"}}</td>
+          <td>{{c.endDate | date:"dd-MM-yyyy"}}</td>
+          <td [ngSwitch]="c.duration">
+            <span *ngSwitchCase="1">1 năm</span>
+            <span *ngSwitchCase="2">2 năm</span>
+            <span *ngSwitchCase="3">3 năm</span>
+            <span *ngSwitchCase="4">4 năm</span>
+            <span *ngSwitchCase="5">5 năm</span>
+          </td>
+          <td [ngSwitch]="c.statusApproval">
+            <span *ngSwitchCase="1"><i class="far fa-check-circle text-success"></i> Đã phê duyệt</span>
+            <span *ngSwitchCase="0"><button class="btn btn-warning btn-sm" (click)="approval(c.id, c.duration)">Phê duyệt</button></span>
+          </td>
+          <td [ngSwitch]="c.statusPay">
+            <span *ngSwitchCase="1"><i class="far fa-check-circle text-success"></i> Đã thanh toán</span>
+            <span *ngSwitchCase="0"><i class="far fa-times-circle"></i> Chưa thanh toán</span>
+          </td>
+          <td>{{c.car.numberPlate}}</td>
+          <td>{{c.employee.name}}</td>
+          <td>{{c.product.name}}</td>
+          <td>
+            <button class="btn btn-warning btn-sm" [routerLink]="['/admin/employee/contract/updateContract/', c.id]" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="fas fa-tools"></i></button>
+            <button class="btn btn-danger btn-sm ml-2" type="submit" (click)="deleteContract(c.id)" data-toggle="tooltip" data-placement="top" title="Xóa"><i class="far fa-trash-alt"></i></button>
+            <button class="btn btn-danger btn-sm ml-2" type="submit" [routerLink]="['/checkout/bill/', c.id] " data-toggle="tooltip" data-placement="top" title="Pay"><i class="far fa-trash-alt"></i></button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <p class="text-danger " *ngIf="isMessage">Danh sách trống</p>
+
+        <nav aria-label="Page navigation example" style="float: right">
+          <ul class="pagination">
+            <li class="page-item" (click)="onFirst()" [ngClass]="pageClicked==0?'disabled':''">
+              <a class="page-link">Đầu</a>
+            </li>
+            <li class="page-item" (click)="onPrevious()" [ngClass]="pageClicked==0?'disabled':''">
+              <a class="page-link">Sau</a>
+            </li>
+            <li *ngIf="pageClicked != 0" class="page-item" (click)="onSubmit(pages[pageClicked-1])">
+              <a class="page-link">{{pageClicked}}</a>
+            </li>
+            <li [ngClass]="(pageClicked == pages[pageClicked]) ? 'active' : ''" class="page-item"
+                (click)="onSubmit(pages[pageClicked])">
+              <a class="page-link">{{pageClicked + 1}}</a>
+            </li>
+            <li *ngIf="pageClicked < pages.length -1" class="page-item" (click)="onSubmit(pages[pageClicked+1])">
+              <a class="page-link">{{pageClicked + 2}}</a>
+            </li>
+            <li *ngIf="pageClicked < pages.length -2" class="page-item">
+              <a class="page-link">...</a>
+            </li>
+            <li *ngIf="pageClicked < pages.length-2" class="page-item" (click)="onLast()">
+              <a class="page-link">{{pages[pages.length - 1] + 1}}</a>
+            </li>
+            <li class="page-item" (click)="onNext()" [ngClass]="pageClicked==totalPages-1?'disabled':''">
+              <a class="page-link">Trước</a>
+            </li>
+            <li class="page-item" (click)="onLast()" [ngClass]="pageClicked==totalPages-1?'disabled':''"><a
+              class="page-link">Cuối</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+</div>

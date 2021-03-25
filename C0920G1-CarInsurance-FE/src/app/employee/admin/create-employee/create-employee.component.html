@@ -1,0 +1,337 @@
+<div class="content row">
+  <div class="col-1">
+  </div>
+  <div class="col-10 float-right mt-3">
+    <form focusInvalidInput [formGroup]="formCreateEmployee" (ngSubmit)="addNewEmployee(formCreateEmployee.value)">
+      <h3>Thêm mới nhân viên</h3>
+      <hr/>
+      <fieldset>
+        <legend>Thêm mới tài khoản</legend>
+
+        <div class="item">
+          <label class="col-2 float-left " for="account">
+            Tài khoản (<span>*</span>):
+          </label>
+          <input id="account" placeholder="Nhập tài khoản" (input)="checkInput('account')"  class="col-6 form-control float-left" type="text" formControlName="users">
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p *ngIf="formCreateEmployee.get('users').hasError('required') && formCreateEmployee.get('users').dirty"
+             class="text-danger">Vui lòng nhập tài khoản.</p>
+          <p *ngIf="formCreateEmployee.get('users').hasError('pattern') && formCreateEmployee.get('users').dirty"
+             class="text-danger">Tài khoản phải có 8 đến 15 kí tự thường bao gồm chữ và số.</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.existAccount}}
+          </p>
+          <p class="text-danger">
+            {{listError.users}}
+          </p>
+        </div>
+
+        <div style="clear: both">
+          <div class="item">
+            <label class="col-2 float-left" for="password">
+              Mật khẩu (<span>*</span>):
+            </label>
+            <input id="password" type="password" (input)="checkInput('newPassword')" placeholder="Nhập mật khẩu" class="col-6 form-control float-left" formControlName="newPassword">
+          </div>
+          <div *ngIf="isCheck" class="item" style="clear: both">
+            <label class="col-2 float-left">
+            </label>
+            <p
+              *ngIf="formCreateEmployee.get('newPassword').hasError('required') && formCreateEmployee.get('newPassword').dirty"
+              class="text-danger">Vui lòng nhập mật khẩu.</p>
+            <p
+              *ngIf="formCreateEmployee.get('newPassword').hasError('pattern') && formCreateEmployee.get('newPassword').dirty"
+              class="text-danger">Mật khẩu phải có 8 đến 15 kí tự thường gồm chữ và số.</p>
+          </div>
+          <div class="item" style="clear: both">
+            <label class="col-2 float-left ">
+            </label>
+            <p class="text-danger">
+              {{listError.newPassword}}
+            </p>
+          </div>
+
+          <div class="item">
+            <label class="col-2 float-left" for="newPassword" style="clear: both">
+              Xác nhận (<span>*</span>):
+            </label>
+            <input class="col-6 form-control float-left" (input)="checkInput('notCorrect')" placeholder="Xác nhận mật khẩu" id="newPassword" type="password"
+                   formControlName="confirmPassword">
+          </div>
+          <div class="item" style="clear: both">
+            <label class="col-2 float-left ">
+            </label>
+            <p class="text-danger">
+              {{listError.notCorrect}}
+            </p>
+          </div>
+        </div>
+
+      </fieldset>
+      <fieldset>
+        <legend>Thêm mới thông tin</legend>
+
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left" for="name">
+            Họ Tên (<span>*</span>):
+          </label>
+          <input name="name" placeholder="Nhập họ tên" (input)="checkInput('name')" id="name" class="col-6 form-control float-left" type="text"
+                 formControlName="name">
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p *ngIf="formCreateEmployee.get('name').hasError('required') && formCreateEmployee.get('name').dirty"
+             class="text-danger">Vui lòng nhập tên.</p>
+          <p *ngIf="formCreateEmployee.get('name').hasError('pattern') && formCreateEmployee.get('name').dirty"
+             class="text-danger">Tên phải đúng định dạng từ 1-30 kí tự.</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.name}}
+          </p>
+        </div>
+
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left" for="birthDay" style="clear: both">
+            Ngày Sinh (<span class="text-danger">*</span>):
+          </label>
+          <input type="date" [max]="maxDate" [min]="minDate" (input)="checkInput('dayOfBirth')" class="col-6 form-control float-left" id="birthDay"
+                 formControlName="dateOfBirth">
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p
+            *ngIf="formCreateEmployee.get('dateOfBirth').hasError('required') && formCreateEmployee.get('dateOfBirth').dirty"
+            class="text-danger">Vui lòng nhập ngày sinh.</p>
+          <p *ngIf="formCreateEmployee.get('dateOfBirth').hasError('minAge')
+            && formCreateEmployee.get('dateOfBirth').dirty" style="color: red">Nhân viên chưa đủ 18 tuổi.</p>
+          <p *ngIf="formCreateEmployee.get('dateOfBirth').hasError('maxAge')
+            && formCreateEmployee.get('dateOfBirth').dirty" style="color: red">Nhân viên quá tuổi.</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.dateOfBirth}}
+          </p>
+        </div>
+
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left">
+            Giới tính (<span>*</span>):
+          </label>
+          <div class="col-10 float-left checkRadio" for="gender">
+            <input id="male" name="gender" (input)="checkInput('gender')" checked class="float-left" value="1" type="radio" formControlName="gender"/><label for="male">Nam</label>
+            <input id="female" name="gender" (input)="checkInput('gender')" class="float-left" value="0" type="radio" formControlName="gender"/><label
+            for="female">Nữ</label>
+            <input id="others" name="gender" (input)="checkInput('gender')" class="float-left" value="2" type="radio" formControlName="gender"/><label
+            for="others">Khác</label>
+          </div>
+        </div>
+
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p *ngIf="formCreateEmployee.get('gender').hasError('required') && formCreateEmployee.get('gender').dirty"
+             class="text-danger">Vui lòng chọn giới tính.</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.gender}}
+          </p>
+        </div>
+
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left" for="idCard" style="clear: both">
+            CMND (<span class="text-danger">*</span>):
+          </label>
+          <input id="idCard" (input)="checkInput('idCard')" class="col-6 form-control float-left" type="number" placeholder="Nhập CMND" formControlName="idCard">
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p *ngIf="formCreateEmployee.get('idCard').hasError('required') && formCreateEmployee.get('idCard').dirty"
+             class="text-danger">Vui lòng nhập CMND.</p>
+          <p *ngIf="formCreateEmployee.get('idCard').hasError('pattern')&& formCreateEmployee.get('idCard').dirty"
+             class="text-danger">CMND gồm 9 số.</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.existIdCard}}
+          </p>
+          <p class="text-danger">
+            {{listError.idCard}}
+          </p>
+        </div>
+
+        <div class="item">
+          <label class="col-2 float-left" for="phone" style="clear: both">
+            Điện thoại (<span class="text-danger">*</span>):
+          </label>
+          <input id="phone" (input)="checkInput('phone')" class="col-6 form-control float-left" placeholder="Nhập điện thoại" type="text" formControlName="phone">
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p *ngIf="formCreateEmployee.get('phone').hasError('required') && formCreateEmployee.get('phone').dirty"
+             class="text-danger">Vui lòng nhập số điện thoại.</p>
+          <p *ngIf="formCreateEmployee.get('phone').hasError('pattern')&& formCreateEmployee.get('phone').dirty"
+             class="text-danger">Số điện thoại phải đúng định dạng 0xxxxxxxxx.</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.existPhone}}
+          </p>
+          <p class="text-danger">
+            {{listError.phone}}
+          </p>
+        </div>
+
+        <div class="item">
+          <label class="col-2 float-left" for="email" style="clear: both">
+            Email (<span class="text-danger">*</span>):
+          </label>
+          <input id="email" (input)="checkInput('email')" class="col-6 form-control float-left" placeholder="Nhập email" type="text" formControlName="email">
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p *ngIf="formCreateEmployee.get('email').hasError('required') && formCreateEmployee.get('email').dirty"
+             class="text-danger">Vui lòng nhập email</p>
+          <p *ngIf="formCreateEmployee.get('email').hasError('pattern')&& formCreateEmployee.get('email').dirty"
+             class="text-danger">Email phải đúng định dạng abc@xyz.xyz</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.existEmail}}
+          </p>
+          <p class="text-danger">
+            {{listError.email}}
+          </p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left" for="address">
+            Địa Chỉ (<span class="text-danger">*</span>):
+          </label>
+          <input id="address" (input)="checkInput('address')" class="col-6 form-control float-left" placeholder="Nhập địa chỉ" type="text" formControlName="address">
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p *ngIf="formCreateEmployee.get('address').hasError('required') && formCreateEmployee.get('address').dirty"
+             class="text-danger">Vui lòng nhập địa chỉ.</p>
+          <p *ngIf="formCreateEmployee.get('address').hasError('pattern') && formCreateEmployee.get('address').dirty"
+             class="text-danger">Địa chỉ nhập từ 1-15 kí tự.</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.address}}
+          </p>
+        </div>
+
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left" for="city">
+            Thành phố (<span class="text-danger">*</span>):
+          </label>
+          <input id="city" (input)="checkInput('city')" class="col-6 form-control float-left" placeholder="Nhập thành phố" type="text" formControlName="city">
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p *ngIf="formCreateEmployee.get('city').hasError('required') && formCreateEmployee.get('city').dirty"
+             class="text-danger">Vui lòng nhập thành phố.</p>
+          <p *ngIf="formCreateEmployee.get('city').hasError('pattern') && formCreateEmployee.get('city').dirty"
+             class="text-danger">Thành phố nhập từ 1 đến 15 kí tự.</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.city}}
+          </p>
+        </div>
+
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left">
+            Vị trí (<span class="text-danger">*</span>):
+          </label>
+          <select (input)="checkInput('position')" class="col-6 form-control" formControlName="position">
+            <option [selected]="position"
+                    *ngFor="let position of positions"
+                    [ngValue]="position.id"> {{position.name}} </option>
+          </select>
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p
+            *ngIf="formCreateEmployee.get('position').hasError('required') && formCreateEmployee.get('position').dirty"
+            class="text-danger">Vui lòng chọn chức vụ.</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.position}}
+          </p>
+        </div>
+
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left">
+            Ảnh Cá Nhân :
+          </label>
+          <img [src]="imgSrc" width="100px" height="100px" (click)="fileUploader.click()">
+        </div>
+
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left" for="image">
+          </label>
+          <input hidden class="col-6 form-control float-left" (input) ="checkInput('img')" type="file" accept="image/*" #fileUploader
+                 id="image" formControlName="img" (change)="showPreview($event)">
+        </div>
+
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p
+            *ngIf="formCreateEmployee.get('img').hasError('required') && formCreateEmployee.get('img').dirty"
+            class="text-danger">Vui lòng chọn hình ảnh.</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.img}}
+          </p>
+        </div>
+      </fieldset>
+      <div class="btn-block">
+        <button type="submit" class="btn btn-warning" >Lưu</button>
+        <button type="button" [routerLink]="['/admin/employee/list']" class="btn btn-danger ml-3">Hủy</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-1">
+  </div>
+</div>

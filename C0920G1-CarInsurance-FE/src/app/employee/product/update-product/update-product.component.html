@@ -1,0 +1,115 @@
+<div class="w-100 float-left p-0 mt-5">
+  <div class="w-100 d-flex justify-content-sm-between">
+    <label for="insurance-name" class="w-25 col-form-label"></label>
+    <div class="w-75">
+      <h4 style="align-content: center">SỬA THÔNG TIN BẢO HIỂM</h4>
+    </div>
+  </div>
+  <form [formGroup]='formUpdateProduct' class="mt-4">
+    <div class="form-group row w-100">
+      <label for="insurance-name"
+             class="w-25 col-form-label"><strong>Tên bảo hiểm </strong> <span
+        style="color: red">(*)</span> :</label>
+      <div class="w-75">
+        <input formControlName='name'
+               type="text"
+               class="form-control"
+               id="insurance-name"
+               placeholder="Nhập tên bảo hiểm">
+        <p *ngIf="formUpdateProduct.controls.name.errors?.required && formUpdateProduct.controls.name.touched"
+           class="text-danger">Vui lòng nhập tên bảo hiểm!</p>
+        <p *ngIf="formUpdateProduct.controls.name.errors?.pattern && formUpdateProduct.controls.name.touched"
+           class="text-danger">Vui lòng nhập đúng định dạng, ví dụ: ST-2516!</p>
+        <p *ngIf="check"
+           class="text-danger">{{messsageErrors.name}}</p>
+      </div>
+    </div>
+    <div class="form-group row w-100">
+      <label for="insurance-type"
+             class="w-25 col-form-label"><strong>Loại bảo hiểm </strong>
+        <span style="color: red">(*)</span> :</label>
+      <div class="w-75">
+        <select formControlName="productType"
+                class="custom-select my-1 mr-sm-2"
+                id="insurance-type">
+          <option *ngFor="let productType of productTypes"
+                  [ngValue]="productType"
+                  [selected]="productType.name == formUpdateProduct.controls.productType.value.name">{{productType.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row w-100">
+      <label for="person-number"
+             class="w-25 col-form-label"><strong>Số người </strong> <span
+        style="color: red">(*)</span> :</label>
+      <div class="w-75">
+
+        <input formControlName="personNumber"
+               type="text"
+               class="form-control"
+               id="person-number"
+               placeholder="Nhập số người">
+        <p *ngIf="formUpdateProduct.controls.personNumber.errors?.required && formUpdateProduct.controls.personNumber.touched"
+          class="text-danger">Vui lòng nhập số người!</p>
+        <p *ngIf="formUpdateProduct.controls.personNumber.errors?.pattern && formUpdateProduct.controls.personNumber.touched"
+          class="text-danger">Sai định dạng, số nhập vào là từ 100 người trở lại!</p>
+        <p *ngIf="check"
+           class="text-danger">{{messsageErrors.personNumber}}</p>
+      </div>
+    </div>
+    <div class="form-group row w-100">
+      <label for="car-type" class="w-25 col-form-label"><strong>Loại xe</strong> <span
+        style="color: red">(*)</span> :</label>
+      <div class="w-75">
+        <select formControlName="carType"
+                class="custom-select my-1 mr-sm-2"
+                id="car-type">
+          <option *ngFor="let carType of carTypes"
+                  [ngValue]="carType"
+                  [selected]="carType.carSeat == formUpdateProduct.controls.carType.value.carSeat">
+            {{carType.carSeat}} chỗ & {{carType.carAge}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row w-100">
+      <label for="product-price" class="w-25 col-form-label">
+        <strong>Đơn giá </strong><span style="color: red">(*)</span> :
+      </label>
+      <div class="w-75">
+        <input formControlName="productPrice"
+               type="text"
+               class="form-control"
+               id="product-price"
+               placeholder="Nhập đơn giá">
+        <p *ngIf="formUpdateProduct.controls.productPrice.errors?.required && formUpdateProduct.controls.productPrice.touched"
+          class="text-danger">Vui lòng nhập đơn giá!</p>
+        <p *ngIf="formUpdateProduct.controls.productPrice.errors?.pattern && formUpdateProduct.controls.productPrice.touched"
+          class="text-danger">Sai định dạng, chỉ từ 9 chữ số trở lại!</p>
+        <p *ngIf="check"
+           class="text-danger">{{messsageErrors.productPrice}}!</p>
+      </div>
+    </div>
+
+    <div class="form-group row w-100">
+      <div class="w-25"></div>
+      <div class="w-75 d-flex justify-content-center">
+        <button mat-dialog-close
+                class="btn btn-success"
+                style="width: 100px">
+          Hủy bỏ
+        </button>
+        <button (click)=updateProduct()
+                class="btn btn-warning ml-1"
+                style="width: 100px">
+          Cập nhật
+        </button>
+        <button type="reset"
+                class="btn btn-info ml-1"
+                style="width: 100px">
+          Xóa hết
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

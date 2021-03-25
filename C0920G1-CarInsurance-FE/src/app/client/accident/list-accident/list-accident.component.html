@@ -1,0 +1,38 @@
+<app-header></app-header>
+<div style="padding-top: 23px">
+  <!-- ======= Breadcrumbs ======= -->
+  <section class="breadcrumbs">
+
+    <!--    content-->
+    <div class="container p-4 rim">
+        <h2 class="text-center pb-5">Yêu cầu bồi thường</h2>
+          <table class="table table-striped pt-5">
+            <thead>
+            <tr>
+              <th scope="col">Mã</th>
+              <th scope="col">Tên khách hàng</th>
+              <th scope="col">lý do</th>
+              <th scope="col">Ngày gửi yêu cầu</th>
+              <th scope="col">Hình ảnh</th>
+              <th scope="col">Trạng thái</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let accident of accidents" >
+              <td *ngIf="userName == accident.contractDetail.contract.car.customer.users.username">{{accident.id}}</td>
+              <td *ngIf="userName == accident.contractDetail.contract.car.customer.users.username">{{accident.contractDetail.contract.car.customer.name}}</td>
+              <td *ngIf="userName == accident.contractDetail.contract.car.customer.users.username">{{accident.reason}}</td>
+              <td *ngIf="userName == accident.contractDetail.contract.car.customer.users.username">{{accident.requestDay | date : 'dd-MM-yyyy'}}</td>
+              <td *ngIf="userName == accident.contractDetail.contract.car.customer.users.username">
+                <img src="{{accident.img}}" style="height: 50px">
+              </td>
+              <td *ngIf="userName == accident.contractDetail.contract.car.customer.users.username" style="color: red">{{accident.statusAccident.name}}</td>
+            </tr >
+            </tbody>
+          </table>
+      </div>
+
+  </section>
+</div>
+<!-- ======= Footer ======= -->
+<app-footer></app-footer>

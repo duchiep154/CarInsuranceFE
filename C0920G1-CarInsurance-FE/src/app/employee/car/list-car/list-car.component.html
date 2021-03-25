@@ -1,0 +1,75 @@
+<div class="col-12 float-right mt-3">
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+      <h3 class="col-6 mt-3 float-left">Danh Sách Xe</h3>
+      <div class="col-6 mt-3 float-right input-group">
+        <button type="button" class="btn btn-dark mr-2" [routerLink]="['/employee/cars-create']"><i class="fas fa-plus-square"></i></button>
+        <input id="addLink" type="text" class="form-control float-left" placeholder="Tìm kiếm"
+               aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append float-left">
+          <button id="linkAdd" class="btn btn-outline-primary" type="submit">Tìm</button>
+        </div>
+
+      </div>
+      <table class="table table-hover" style="font-size: 12px;">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">ID</th>
+          <th scope="col">Biển số</th>
+          <th scope="col">Số Khung</th>
+          <th scope="col">Hãng sản xuất</th>
+          <th scope="col">Năm sản Xuất</th>
+          <th scope="col">Khách hàng</th>
+          <th scope="col">Hoạt Động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let car of cars, let i = index">
+          <td>{{i + 1 + (pageClicked * size)}}</td>
+          <td>{{car.id}}</td>
+          <td>{{car.manufacturer}}</td>
+          <td>{{car.yearManufacturing}}</td>
+          <td>{{car.numberPlate}}</td>
+          <td>{{car.carIdNumber}}</td>
+          <td>{{car.customer.name}}</td>
+          <td style="width: 12%;">
+            <button (click)=openDeleteDialog(car.id) class="btn btn-sm btn-danger mr-3"><i class="far fa-trash-alt"></i></button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <nav aria-label="Page navigation example" style="float: right">
+        <ul class="pagination">
+          <li class="page-item" (click)="onFirst()" [ngClass]="pageClicked==0?'disabled':''">
+            <a class="page-link">Đầu</a>
+          </li>
+          <li class="page-item" (click)="onPrevious()" [ngClass]="pageClicked==0?'disabled':''">
+            <a class="page-link">Sau</a>
+          </li>
+          <li *ngIf="pageClicked != 0" class="page-item" (click)="getAllCar(pages[pageClicked-1])">
+            <a class="page-link">{{pageClicked}}</a>
+          </li>
+          <li [ngClass]="(pageClicked == pages[pageClicked]) ? 'active' : ''" class="page-item"
+              (click)="getAllCar(pages[pageClicked])">
+            <a class="page-link">{{pageClicked + 1}}</a>
+          </li>
+          <li *ngIf="pageClicked < pages.length -1" class="page-item" (click)="getAllCar(pages[pageClicked+1])">
+            <a class="page-link">{{pageClicked + 2}}</a>
+          </li>
+          <li *ngIf="pageClicked < pages.length -2" class="page-item">
+            <a class="page-link">...</a>
+          </li>
+          <li *ngIf="pageClicked < pages.length-2" class="page-item" (click)="onLast()">
+            <a class="page-link">{{pages[pages.length - 1] + 1}}</a>
+          </li>
+          <li class="page-item" (click)="onNext()" [ngClass]="pageClicked==totalPages-1?'disabled':''">
+            <a class="page-link">Trước</a>
+          </li>
+          <li class="page-item" (click)="onLast()" [ngClass]="pageClicked==totalPages-1?'disabled':''"><a
+            class="page-link">Cuối</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

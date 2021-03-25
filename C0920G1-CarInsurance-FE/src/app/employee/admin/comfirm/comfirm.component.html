@@ -1,0 +1,10 @@
+<div>
+  <p class="color-message"><b>{{data}}</b></p>
+</div>
+<div class="div-message" style="float: right">
+  <button mat-raised-button color="warn" (click)="onConfirmClick(false)" [routerLink]="['/admin/employee/list']">Thoát</button>
+</div>
+<div class="div-message" style="float: right">
+  <button mat-raised-button color="primary" (click)="onConfirmClick(true)">Hủy</button>
+</div>
+

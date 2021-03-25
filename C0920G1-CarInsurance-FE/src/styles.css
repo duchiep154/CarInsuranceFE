@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+app-root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  width: 100%;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.blue-snackbar {
+  background: #2196F3;
+  color: white;
+}
+
+.valid-snackbar {
+  background: lightgreen;
+  color: black;
+}
+
+.invalid-snackbar {
+  background: lightgray;
+  color: black;
+  width: 200px;
+  height: 70px;
+}
+
+/*# sourceMappingURL=styles.css.map */

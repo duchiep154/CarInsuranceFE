@@ -1,0 +1,293 @@
+<!--Khanh-->
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </ng-template>
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"
+               [template]="customLoadingTemplate"></ngx-loading>
+</div>
+<mat-horizontal-stepper #stepper="matHorizontalStepper">
+  <mat-step class="col-4">
+    <div class="d-flex justify-content-center" [formGroup]="formGroup">
+      <form formGroupName="stepOne">
+        <ng-template matStepLabel>Điền thông tin bảo hiểm</ng-template>
+        <table style="align-content: center">
+          <tr>
+            <mat-form-field style="width: 70vh" class="example-full-width">
+              <mat-label>Chọn loại sản phẩm (<span style="color: red"> * </span>)</mat-label>
+              <input (blur)="checkProduct()" formControlName="product" [(ngModel)]="productName" type="text"
+                     matInput
+                     [formControl]="myControl"
+                     [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <mat-error *ngIf="formGroup.controls.stepOne.get('product').hasError('required') &&
+formGroup.controls.stepOne.get('product').touched">Sản phẩm không được để trống, vui lòng nhập.
+            </mat-error>
+
+            <p *ngIf="messageErrorProduct" style="color: red">{{messageErrorProduct}}</p>
+          </tr>
+          <tr>
+            <mat-form-field style="width: 70vh">
+              <mat-label>chọn thời hạn (<span style="color: red"> * </span>)</mat-label>
+              <mat-select [(ngModel)]="time" formControlName="time" (ngModelChange)="getTime($event)">
+                <mat-option [value]="1">1 năm</mat-option>
+                <mat-option [value]="2">2 năm</mat-option>
+                <mat-option [value]="3">3 năm</mat-option>
+                <mat-option [value]="4">4 năm</mat-option>
+                <mat-option [value]="5">5 năm</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-error *ngIf="formGroup.controls.stepOne.get('time').hasError('required') &&
+formGroup.controls.stepOne.get('time').touched">Thời hạn không được để trống, vui lòng nhập.
+            </mat-error>
+          </tr>
+          <tr>
+            <mat-form-field style="width: 70vh">
+              <mat-label>chọn ngày bắt đầu (<span style="color: red"> * </span>)</mat-label>
+              <input [min]="minDate" (click)="startDate.open()" (focus)="startDate.open()" (ngModelChange)="getDate($event)" class="form-control"
+                     formControlName="startDate" matInput [matDatepicker]="startDate">
+              <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+              <mat-datepicker #startDate></mat-datepicker>
+            </mat-form-field>
+            <mat-error *ngIf="formGroup.controls.stepOne.get('startDate').hasError('required') &&
+formGroup.controls.stepOne.get('startDate').touched">Ngày bắt đầu không được để trống và phải chọn từ trên lịch.
+            </mat-error>
+
+          </tr>
+          <tr>
+            <mat-form-field style="width: 70vh">
+              <mat-label>Ngày kết thúc</mat-label>
+              <input readonly type="text" matInput formControlName="endDate" [(ngModel)]="dateChange">
+            </mat-form-field>
+          </tr>
+          <tr>
+            <input type="hidden" formControlName="statusApproval" placeholder="Trạng thái phê duyệt" value="chưa">
+          </tr>
+          <tr>
+            <input type="hidden" formControlName="statusPay" placeholder="Trạng thái thanh toán" value="chưa">
+          </tr>
+        </table>
+        <div>
+
+          <button mat-button mat-dialog-close="">Trở ra</button>
+          <button mat-button type="reset">Hủy</button>
+          <button mat-button [disabled]="formGroup.controls.stepOne.invalid || messageErrorProduct !== ''"
+                  (click)="checkProduct()" matStepperNext>Tiếp
+          </button>
+        </div>
+      </form>
+    </div>
+  </mat-step>
+  <mat-step class="col-4">
+    <div class="d-flex justify-content-center">
+      <form [formGroup]="formGroup">
+<<<<<<< HEAD
+        <ng-template matStepLabel>Điền thông tin chủ xe</ng-template>
+        <table class="table">
+          <tr>
+            <td>
+              <label style="margin-top: 10px" id="example-radio-group-label">Quý khách muốn mua bảo hiểm<br> cho xe đã
+                đăng ký trước đây?</label><br>
+              <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                               formControlName="carCheck">
+                <mat-radio-button (click)="checkCar(true)" value="true">Có</mat-radio-button>
+                <mat-radio-button (click)="checkCar(false)" value="false" style="margin-left: 40px">Không
+                </mat-radio-button>
+              </mat-radio-group>
+            </td>
+            <td *ngIf="chooseCarNo">
+              <mat-form-field>
+                <input (blur)="checkNumberPlate()" [(ngModel)]="numberPlate" matInput placeholder="Biển kiểm soát"
+                       formControlName="numberPlate" required>
+              </mat-form-field>
+              <mat-error *ngIf="formGroup.get('numberPlate').hasError('required') &&
+formGroup.get('numberPlate').dirty">Biển số xe không được để<br> trống, vui lòng nhập.
+              </mat-error>
+              <mat-error *ngIf="formGroup.get('numberPlate').hasError('pattern') &&
+formGroup.get('numberPlate').dirty">Biển số xe phải theo định<br> dạng 43R3-0046.
+              </mat-error>
+              <p *ngIf="messageDuplicationNumberPlate" style="color: red">{{messageDuplicationNumberPlate}}</p>
+              <p *ngIf="check">{{messageError.yearManufacturing}}</p>
+            </td>
+            <td *ngIf="chooseCarYes">
+              <mat-form-field>
+                <input [(ngModel)]="car.numberPlate" matInput placeholder="Biển kiểm soát" formControlName="numberPlate"
+                       readonly>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field>
+                <input [(ngModel)]="customer.name" formControlName="name" matInput placeholder="Tên chủ xe" readonly>
+              </mat-form-field>
+            </td>
+            <td *ngIf="chooseCarNo">
+              <mat-form-field>
+                <input [(ngModel)]="carIdNumber" matInput placeholder="Số khung" formControlName="carIdNumber" required>
+              </mat-form-field>
+              <mat-error *ngIf="formGroup.get('carIdNumber').hasError('required') &&
+formGroup.get('carIdNumber').dirty">Khung xe không được để<br> trống, vui lòng nhập.
+              </mat-error>
+              <mat-error *ngIf="formGroup.get('carIdNumber').hasError('pattern') &&
+formGroup.get('carIdNumber').dirty">Số khung phải từ 9 - 12<br> ký tự.
+              </mat-error>
+            </td>
+            <td *ngIf="chooseCarYes">
+              <mat-form-field>
+                <input [(ngModel)]="car.carIdNumber" matInput placeholder="Số khung" formControlName="carIdNumber"
+                       readonly>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field>
+                <input [(ngModel)]="customer.address" formControlName="address" matInput placeholder="Địa chỉ" readonly>
+              </mat-form-field>
+            </td>
+            <td *ngIf="chooseCarNo">
+              <mat-form-field>
+                <input [(ngModel)]="manufacturer" matInput placeholder="Nhà sản xuất" formControlName="manufacturer"
+                       required>
+              </mat-form-field>
+              <mat-error *ngIf="formGroup.get('manufacturer').hasError('required') &&
+formGroup.get('manufacturer').dirty">Tên nhà sản xuất không được<br> để trống, vui lòng nhập.
+              </mat-error>
+              <mat-error *ngIf="formGroup.get('manufacturer').hasError('pattern') &&
+formGroup.get('manufacturer').dirty">Tên nhà sản xuất phải in<br> hoa và nhỏ hơn 20 ký tự
+              </mat-error>
+            </td>
+            <td *ngIf="chooseCarYes">
+              <mat-form-field>
+                <input [(ngModel)]="car.manufacturer" matInput placeholder="Nhà sản xuất" formControlName="manufacturer"
+                       readonly>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td *ngIf="chooseCarYes">
+              <mat-form-field style="margin-top: 10px">
+                <mat-select placeholder="chọn biển kiểm soát (*)" (ngModelChange)="getCar($event.id)"
+                            formControlName="car">
+                  <mat-option *ngFor="let car of listCar" [value]="car">
+                    {{car.numberPlate}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-error *ngIf="formGroup.get('car').hasError('required') &&
+formGroup.get('car').touched">Vui lòng chọn biển số xe.
+              </mat-error>
+            </td>
+            <td *ngIf="chooseCarNo">
+
+            </td>
+            <td *ngIf="chooseCarNo">
+              <mat-form-field>
+                <input [(ngModel)]="yearManufacturing" matInput placeholder="Năm sản xuất"
+                       formControlName="yearManufacturing" required>
+              </mat-form-field>
+              <mat-error *ngIf="formGroup.get('yearManufacturing').hasError('required') &&
+formGroup.get('yearManufacturing').dirty">Năm sản xuất không được để<br> trống, vui lòng nhập.
+              </mat-error>
+              <mat-error *ngIf="formGroup.hasError('wrongYear') &&
+formGroup.get('yearManufacturing').dirty">Năm sản xuất phải từ 2000<br> đến hiện tại.
+              </mat-error>
+            </td>
+            <td *ngIf="chooseCarYes">
+              <mat-form-field>
+                <input [(ngModel)]="car.yearManufacturing" matInput placeholder="Năm sản xuất"
+                       formControlName="yearManufacturing" readonly>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" style="text-align: center">
+              <button mat-button matStepperPrevious>Quay lại</button>
+              <button mat-button matStepperNext [disabled]="formGroup.invalid && messageDuplicationNumberPlate !== ''"
+                      (click)="getMoney()">Tiếp
+              </button>
+            </td>
+          </tr>
+          <tr style="display: none">
+            <td>
+              <mat-form-field>
+                <input [(ngModel)]="customer.id" matInput placeholder="Id" formControlName="id" readonly>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </mat-step>
+  <mat-step class="col-4">
+    <ng-template matStepLabel><span (click)="getMoney()">Xác nhận thông tin</span></ng-template>
+    <div class="d-flex justify-content-center">
+    <form [formGroup]="thirdFormGroup">
+      <table class="table">
+        <tr>
+          <td>
+            <mat-form-field>
+              <input [(ngModel)]="customer.name" matInput placeholder="Tên chủ xe" formControlName="name" readonly>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <input [(ngModel)]="productName" matInput placeholder="Loại bảo hiểm" formControlName="product" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field>
+              <input [(ngModel)]="customer.address" matInput placeholder="Địa chỉ" formControlName="address" readonly>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <input [(ngModel)]="time" matInput placeholder="Thời hạn (năm)" formControlName="time" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field *ngIf="chooseCarNo">
+              <input [(ngModel)]="numberPlate" matInput placeholder="Biển kiểm soát" formControlName="numberPlate" readonly>
+            </mat-form-field>
+            <mat-form-field *ngIf="chooseCarYes">
+              <input [(ngModel)]="car.numberPlate" matInput placeholder="Biển kiểm soát" formControlName="numberPlate"
+                     readonly>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <input [(ngModel)]="totalMoney" matInput placeholder="Phí bảo hiểm (VNĐ)" formControlName="money" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <section class="example-section">
+              <mat-checkbox class="example-margin" formControlName="checkConfirm" [(ngModel)]="checkConfirm">Tôi xác nhận
+                thông tin trên là đúng.
+              </mat-checkbox>
+            </section>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="text-align: center">
+            <button mat-button matStepperPrevious>Quay lại</button>
+            <button mat-button (click)="save()" [disabled]="!checkConfirm">Tạo hợp đồng</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+<!--Khanh-->

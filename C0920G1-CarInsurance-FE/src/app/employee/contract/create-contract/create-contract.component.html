@@ -1,0 +1,328 @@
+<div class="content row">
+  <div class="col-1">
+  </div>
+  <div class="col-10 float-right mt-3">
+    <form focusInvalidInput [formGroup]="formCreateContract" (ngSubmit)="addNewContract(formCreateContract.value)">
+      <h3>Thêm mới hợp đồng</h3>
+      <hr/>
+
+      <fieldset>
+        <legend>Thêm mới xe</legend>
+        <div class="item">
+          <label class="col-2 float-left " for="numberPlate">
+            Biển số xe (<span>*</span>):
+          </label>
+          <input id="numberPlate" (input)="checkInput('numberPlate')" placeholder="43A3-1234" class="col-6 form-control float-left" type="text"
+                 formControlName="numberPlate">
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p
+            *ngIf="formCreateContract.get('numberPlate').hasError('required') && formCreateContract.get('numberPlate').dirty"
+            class="text-danger">Vui lòng nhập biển số xe</p>
+          <p
+            *ngIf="formCreateContract.get('numberPlate').hasError('pattern') && formCreateContract.get('numberPlate').dirty"
+            class="text-danger">Biển số xe phải theo định dạng 43A3-1234</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.numberPlate}}
+          </p>
+        </div>
+
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left " for="carIdNumber">
+            Số khung xe (<span>*</span>):
+          </label>
+          <input id="carIdNumber" (input)="checkInput('carIdNumber')" placeholder="213213212" class="col-6 form-control float-left" type="text"
+                 formControlName="carIdNumber">
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p
+            *ngIf="formCreateContract.get('carIdNumber').hasError('required') && formCreateContract.get('carIdNumber').dirty"
+            class="text-danger">Vui lòng nhập khung xe</p>
+          <p
+            *ngIf="formCreateContract.get('carIdNumber').hasError('pattern') && formCreateContract.get('carIdNumber').dirty"
+            class="text-danger">Số khung phải từ 9 - 12 ký tự</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.carIdNumber}}
+          </p>
+          <p class="text-danger">
+            {{listError.existCarId}}
+          </p>
+        </div>
+
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left " for="manufacturer">
+            Nhà sản xuất (<span>*</span>):
+          </label>
+          <input id="manufacturer" placeholder="Honda" (input)="checkInput('manufacturer')" class="col-6 form-control float-left" type="text"
+                 formControlName="manufacturer">
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p
+            *ngIf="formCreateContract.get('manufacturer').hasError('required') && formCreateContract.get('manufacturer').dirty"
+            class="text-danger">Vui lòng nhập nhà sản xuất</p>
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p
+            *ngIf="formCreateContract.get('manufacturer').hasError('pattern') && formCreateContract.get('manufacturer').dirty"
+            class="text-danger">Tên nhà sản xuất phải in hoa</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.manufacturer}}
+          </p>
+        </div>
+
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left " for="yearManufacturing">
+            Năm sản xuất (<span>*</span>):
+          </label>
+          <input id="yearManufacturing" (input)="checkInput('yearManufacturing')" placeholder="2021" class="col-6 form-control float-left" type="text"
+                 formControlName="yearManufacturing">
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p
+            *ngIf="formCreateContract.get('yearManufacturing').hasError('required') && formCreateContract.get('yearManufacturing').dirty"
+            class="text-danger">Vui lòng nhập năm sản xuất</p>
+
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p
+            *ngIf="formCreateContract.get('yearManufacturing').hasError('pattern') && formCreateContract.get('yearManufacturing').dirty"
+            class="text-danger">Năm sản xuất > 2000</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.yearManufacturing}}
+          </p>
+        </div>
+
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left">
+            Khách hàng (<span class="text-danger">*</span>):
+          </label>
+          <select (input)="checkInput('customer')" class="col-6 form-control" formControlName="customer">
+            <option [selected]="customer"
+                    *ngFor="let customer of customers"
+                    [ngValue]="customer.id"> {{customer.name}} </option>
+          </select>
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p
+            *ngIf="formCreateContract.get('customer').hasError('required') && formCreateContract.get('customer').dirty"
+            class="text-danger">Vui lòng chọn chủ xe</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.customer}}
+          </p>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Thêm mới thông tin</legend>
+
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left">
+            Kì hạn (<span class="text-danger">*</span>):
+          </label>
+          <select (input)="checkInput('duration')" class="col-6 form-control" formControlName="duration">
+            <option value="1"> 1 năm</option>
+            <option value="2"> 2 năm</option>
+            <option value="3"> 3 năm</option>
+            <option value="4"> 4 năm</option>
+            <option value="5"> 5 năm</option>
+          </select>
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p
+            *ngIf="formCreateContract.get('duration').hasError('required') && formCreateContract.get('duration').dirty"
+            class="text-danger">Vui lòng chọn kì hạn</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.duration}}
+          </p>
+        </div>
+
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left" for="startDate" style="clear: both">
+            Ngày bắt đầu (<span class="text-danger">*</span>):
+          </label>
+          <input type="date" [min]="toDay" (input)="checkInput('startDate')" class="col-6 form-control float-left" id="startDate" formControlName="startDate">
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p
+            *ngIf="formCreateContract.get('startDate').hasError('required') && formCreateContract.get('startDate').dirty"
+            class="text-danger">Vui lòng nhập ngày bắt đầu hợp đồng</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.startDate}}
+          </p>
+        </div>
+
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left" for="endDate" style="clear: both">
+            Ngày kết thúc (<span class="text-danger">*</span>):
+          </label>
+          <input type="date" (input)="checkInput('endDate')" class="col-6 form-control float-left" id="endDate" formControlName="endDate">
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p
+            *ngIf="formCreateContract.get('endDate').hasError('required') && formCreateContract.get('endDate').dirty"
+            class="text-danger">Vui lòng nhập ngày kết thúc hợp đồng</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.endDate}}
+          </p>
+        </div>
+
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left">
+            Tình trạng phê duyệt (<span class="text-danger">*</span>):
+          </label>
+          <select (input)="checkInput('statusApproval')" class="col-6 form-control" formControlName="statusApproval">
+            <option value="0"> Chưa phê duyệt</option>
+            <option value="1"> Đã phê duyệt</option>
+          </select>
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p
+            *ngIf="formCreateContract.get('statusApproval').hasError('required') && formCreateContract.get('statusApproval').dirty"
+            class="text-danger">Vui lòng chọn tình trạng phê duyệt</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.statusApproval}}
+          </p>
+        </div>
+
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left">
+            Tình trạng thanh toán (<span class="text-danger">*</span>):
+          </label>
+          <select (input)="checkInput('statusPay')" class="col-6 form-control" formControlName="statusPay">
+            <option value="0"> Chưa thanh toán</option>
+            <option value="1"> Đã thanh toán</option>
+          </select>
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p
+            *ngIf="formCreateContract.get('statusPay').hasError('required') && formCreateContract.get('statusPay').dirty"
+            class="text-danger">Vui lòng chọn tình trạng thanh toán</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.statusPay}}
+          </p>
+        </div>
+
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left">
+            Bảo hiểm (<span class="text-danger">*</span>):
+          </label>
+          <select (input)="checkInput('product')" class="col-6 form-control" formControlName="product">
+            <option [selected]="product"
+                    *ngFor="let product of products"
+                    [ngValue]="product.id"> {{product.name}} </option>
+          </select>
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p
+            *ngIf="formCreateContract.get('product').hasError('required') && formCreateContract.get('product').dirty"
+            class="text-danger">Vui lòng chọn bảo hiểm</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.product}}
+          </p>
+        </div>
+
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left">
+            Nhân viên (<span class="text-danger">*</span>):
+          </label>
+          <select (input)="checkInput('employee')" class="col-6 form-control" formControlName="employee">
+            <option [selected]="employee.name"
+                    *ngFor="let employee of employees"
+                    [ngValue]="employee.id"> {{employee.name}} </option>
+          </select>
+        </div>
+        <div *ngIf="isCheck" class="item" style="clear: both">
+          <label class="col-2 float-left">
+          </label>
+          <p
+            *ngIf="formCreateContract.get('employee').hasError('required') && formCreateContract.get('employee').dirty"
+            class="text-danger">Vui lòng chọn nhân viên phụ trách</p>
+        </div>
+        <div class="item" style="clear: both">
+          <label class="col-2 float-left ">
+          </label>
+          <p class="text-danger">
+            {{listError.employee}}
+          </p>
+        </div>
+
+      </fieldset>
+      <div class="btn-block">
+        <button type="submit" class="btn btn-warning  ">Lưu</button>
+        <button type="button" [routerLink]="['/employee/contract']" class="btn btn-danger ml-3">Hủy</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-1">
+  </div>
+</div>

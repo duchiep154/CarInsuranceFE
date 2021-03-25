@@ -1,0 +1,29 @@
+
+    <h3 class="text-center" style="color: #007bff; margin-top: 50px">Thông tin đền bù</h3>
+    <div class="container">
+      <div class="row">
+        <div class="col-4 text-danger"><h6>Mã khách hàng:</h6></div>
+        <div class="col-4"><h6>{{accident.customerId}}</h6></div>
+      </div>
+      <div class="row">
+        <div class="col-4 text-danger"><h6>Mã hợp đồng:</h6></div>
+        <div class="col-4"><h6>{{accident.contractId}}</h6></div>
+      </div>
+      <div class="row">
+        <div class="col-4 text-danger"><h6>Tên khách hàng:</h6></div>
+        <div class="col-4"><h6>{{accident.customerName}}</h6></div>
+      </div>
+      <div class="row">
+        <div class="col-4 text-danger"><h6>Địa chỉ:</h6></div>
+        <div class="col-4"><h6>{{accident.customerAddress}}</h6></div>
+      </div>
+      <div class="row">
+        <div class="col-4 text-danger"><h6>Số tiền bồi thường:</h6></div>
+        <div class="col-4"><h6>{{accident.accidentMoney}}<span style="color: blue">Vnd</span></h6></div>
+      </div>
+      <div class="row">
+        <button (click)="refund()" class="btn-primary" style="width: 100px">Thanh toán</button>
+        <button [routerLink]="['/employee/accident']" class="btn-danger" style="width: 100px ;margin-left: 10px" >Huỷ bỏ</button>
+      </div>
+    </div>
+

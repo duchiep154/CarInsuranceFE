@@ -1,0 +1,50 @@
+<div class="content row">
+  <div class="col-8 content-right">
+    <h3 align="center" class="mt-5">
+      Đổi mật khẩu
+    </h3>
+    <form class="form-signin" [formGroup]="checkPass" (ngSubmit)="updatePassword()">
+      <div class="form-inline" style="margin-top: 30px">
+        <label for="oldPassword" class="col-6">Mật khẩu cũ (<span class="text-danger">*</span>):</label>
+        <input type="password" id="oldPassword" class="form-control col-6" (change)="getOldPass($event.target.value)"
+               placeholder="Mật khẩu cũ"
+               required>
+      </div>
+      <div class="form-inline">
+        <label class="col-6"></label>
+        <p>{{notification}}</p>
+      </div>
+      <div class="form-inline" style="margin-top: -20px">
+        <label for="newPassword" class="col-6">Mật khẩu mới (<span class="text-danger">*</span>):</label>
+        <input type="password" id="newPassword" class="form-control col-6" formControlName="newPassword"
+               (change)="checkOldWithNewPass($event.target.value)"
+               placeholder="Mật khẩu mới" required>
+      </div>
+      <div class="form-inline">
+        <label class="col-6"></label>
+        <p>{{notificationPassNew}}</p>
+        <p *ngIf="checkPass.get('newPassword').hasError('required') && checkPass.get('newPassword').touched"
+        >Vui lòng nhập mật khẩu</p>
+        <p *ngIf="checkPass.get('newPassword').hasError('pattern') && checkPass.get('newPassword').touched"
+        >Mật khẩu phải tối thiểu tám ký tự, ít nhất một chữ cái và một số</p>
+      </div>
+      <div class="form-inline" style="margin-top: -20px">
+        <label for="confirmNewPassword" class="col-6">Nhập lại mật khẩu mới (<span
+          class="text-danger">*</span>):</label>
+        <input type="password" id="confirmNewPassword" class="form-control col-6" formControlName="confirmNewPassword"
+               placeholder="Nhập lại mật khẩu mới" required>
+      </div>
+      <div class="form-inline">
+        <label class="col-6"></label>
+        <p *ngIf="checkPass.hasError('passwordNotMatch') && checkPass.get('confirmNewPassword').touched"
+        >Mật khẩu không khớp</p>
+      </div>
+      <br>
+      <div class="form-inline btn-submit">
+        <label>
+          <button type="submit" class="btn btn-outline-primary" [disabled]="checkPass.invalid">Lưu</button>
+        </label>
+      </div>
+    </form>
+  </div>
+</div>

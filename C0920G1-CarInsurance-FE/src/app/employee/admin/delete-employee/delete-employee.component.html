@@ -1,0 +1,9 @@
+<mat-dialog-content>
+  <p>
+    Bạn có chắc muốn xóa nhân viên {{dataTemp}} này?
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-raised-button color="warn" (click)="onConfirmClick(true)" tabindex="1">Xóa</button>
+  <button mat-raised-button mat-dialog-close tabindex="-1">Trở Lại</button>
+</mat-dialog-actions>

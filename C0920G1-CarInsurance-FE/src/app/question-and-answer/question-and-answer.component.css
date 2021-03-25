@@ -1,0 +1,11 @@
+img {
+  display: block;
+  max-width: 65px;
+  max-height: 65px;
+  width: auto;
+  height: auto;
+  align-items: center;
+  margin-left: 10px;
+}
+
+/*# sourceMappingURL=question-and-answer.component.css.map */

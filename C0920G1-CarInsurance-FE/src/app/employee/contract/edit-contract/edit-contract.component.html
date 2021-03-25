@@ -1,0 +1,114 @@
+<form focusInvalidInput [formGroup]="formUpdateContract" (ngSubmit)="updateContract()" class="form-group-margin">
+  <!--  -->
+  <div class="form-group">
+    <div class="row-cols-2">
+      <label class="col-3" for="startDate" style="text-align: left">
+        Ngày Làm Hợp Đồng (<span class="text-danger">*</span>):
+      </label>
+      <mat-form-field>
+        <input [max]="maxDate" [min]="minDate" (ngModelChange)="getDate($event)" class="col-6 form-control"
+               id="startDate"
+               formControlName="startDate" matInput [matDatepicker]="myDatepicker">
+        <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <!--  -->
+  <div class="form-group">
+    <div class="row-cols-2">
+      <label class="col-3" for="endDate" style="text-align: left">
+        Ngày Kết Thúc Hợp Đồng (<span class="text-danger">*</span>):
+      </label>
+      <mat-form-field>
+        <input id="endDate" readonly type="text" matInput formControlName="endDate" [(ngModel)]="dateChange">
+      </mat-form-field>
+    </div>
+  </div>
+  <!--  -->
+  <div ></div>
+  <div class="form-group">
+    <div class="row-cols-2">
+      <label class="col-3" for="statusPay" style="text-align: left">
+        Trạng Thái Thanh Toán :
+      </label>
+      <input id="statusPay" ng-control="statusPay" value="1" type="radio" formControlName="statusPay"/>&nbsp;Đã Thanh
+      Toán
+      &nbsp;
+      <input ng-control="statusPay" value="0" type="radio" formControlName="statusPay"/>&nbsp;Chưa Thanh Toán &nbsp;
+    </div>
+  </div>
+  <!--  -->
+  <div class="form-group">
+    <div class="row">
+      <label class="col-3 " for="duration" >Thời Hạn Hợp Đồng:</label>
+      <select class="col-6 form-control margin" id="duration" [(ngModel)]="time" (ngModelChange)="getTime($event)"
+              formControlName="duration">
+        <option value="1">1 Năm</option>
+        <option value="2">2 Năm</option>
+        <option value="3">3 Năm</option>
+        <option value="4">4 Năm</option>
+      </select>
+    </div>
+  </div>
+
+  <!--  -->
+  <div class="form-group">
+    <div class="row-cols-2">
+      <label class="col-3" for="statusApproval" style="text-align: left">
+        Trạng Thái Phê Duyệt :
+      </label>
+      <input  id="statusApproval" ng-control="statusApproval" value="1" type="radio"
+             formControlName="statusApproval"/>&nbsp;Đã Phê Duyệt &nbsp;
+      <input ng-control="statusApproval" value="0" type="radio" formControlName="statusApproval"/>&nbsp;Chưa Phê
+      Duyệt &nbsp;
+    </div>
+  </div>
+  <!--  -->
+  <div class="form-group">
+    <div class="row">
+      <label class="col-3" for="product" style="text-align: left">
+        Bảo Hiểm : (<span class="text-danger">*</span>):
+      </label>
+      <select class="col-6 form-control margin" id="product" formControlName="product">
+        <option [selected]="product.name == formUpdateContract.controls.product.value.name"
+                *ngFor="let product of productList"
+                [ngValue]="product"> {{product.name}} </option>
+      </select>
+    </div>
+  </div>
+  <!--  -->
+  <div class="form-group">
+    <div class="row">
+      <label class="col-3" for="car" style="text-align: left">
+        Biển Số Xe : (<span class="text-danger">*</span>):
+      </label>
+      <select class="col-6 form-control margin" id="car" formControlName="car">
+        <option [selected]="car.numberPlate == formUpdateContract.controls.car.value.numberPlate"
+                *ngFor="let car of carList"
+                [ngValue]="car"> {{car.numberPlate}} </option>
+      </select>
+    </div>
+  </div>
+  <!--  -->
+  <div class="form-group">
+    <div class="row">
+      <label class="col-3" for="employee" >
+        Nhân Viên : (<span class="text-danger">*</span>):
+      </label>
+      <select class="col-6 form-control margin" id="employee" formControlName="employee">
+        <option [selected]="employee.name == formUpdateContract.controls.employee.value.name"
+                *ngFor="let employee of employeeList"
+                [ngValue]="employee"> {{employee.name}} </option>
+      </select>
+    </div>
+  </div>
+  <div class="form-inline btn-submit">
+    <label>
+      <button type="submit" class="btn btn-outline-warning ">Lưu</button>
+    </label>
+    <label class="ml-4">
+      <button type="button" class="btn btn-outline-dark " [routerLink]="['/employee/contract']">Trở Lại</button>
+    </label>
+  </div>
+</form>
